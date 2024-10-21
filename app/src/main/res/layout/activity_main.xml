@@ -9,11 +9,11 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:text="조회/입력"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/editTextText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
     <TextView
@@ -22,9 +22,10 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
-        android:hint="1101268"
         android:text="1101268"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
@@ -35,7 +36,6 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
-        android:hint="IOP-2XRL10-6R(3.7kW)-65A"
         android:text="IOP-2XRL10-6R(3.7kW)-65A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
@@ -44,10 +44,13 @@
         android:id="@+id/divider2"
         android:layout_width="409dp"
         android:layout_height="1dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="1dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView4"
@@ -55,9 +58,10 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="11011     홍길동"
-        android:textAlignment="textStart"
+        app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,10 +69,13 @@
         android:id="@+id/divider"
         android:layout_width="409dp"
         android:layout_height="1dp"
+        android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="1dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/editTextText"
@@ -76,10 +83,13 @@
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="생산오더 번호"
+        android:gravity="center"
         android:inputType="text"
         android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
@@ -88,9 +98,10 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:text="조회/입력"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="233dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button3"
@@ -102,6 +113,7 @@
         android:text="작업 시작"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
