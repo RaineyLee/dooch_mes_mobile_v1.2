@@ -50,6 +50,12 @@
             android:theme="@style/Theme.AppCompat">
         </activity>
 
+        <activity
+            android:name=".W_production"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
+
         <!-- 스캐너 가로/세로 방향 옵션 -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
