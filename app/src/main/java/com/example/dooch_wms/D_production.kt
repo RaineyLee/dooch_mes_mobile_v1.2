@@ -1,8 +1,7 @@
 package com.example.dooch_wms
 
-
-data class D_employee(
+data class D_production(
     val id: String,
     val name: String,
-    val dept_name: String
-    )
+    val qty: String
+)

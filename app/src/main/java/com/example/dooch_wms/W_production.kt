@@ -1,32 +1,29 @@
 package com.example.dooch_wms
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AppCompatActivity
-import com.example.dooch_wms.databinding.ActivityEmployeeBinding
-import com.example.dooch_wms.databinding.ActivityMainBinding
+import com.example.dooch_wms.databinding.ActivityProductionBinding
 
-class W_employee : ComponentActivity() {
-    private lateinit var employeeBinding: ActivityEmployeeBinding
+class W_production : ComponentActivity() {
+    private lateinit var productionBinding: ActivityProductionBinding
 
-    var EmpList = arrayListOf<D_employee>(
-        D_employee("1000", "홍길동", "생산1팀"),
-        D_employee("1010", "이순신", "생산2팀"),
-        D_employee("1020", "세종대왕", "생산3팀")
+    var EmpList = arrayListOf<D_production>(
+        D_production("1000", "입형다단 펌프", "1"),
+        D_production("1010", "회형다단 펌프", "2"),
+        D_production("1020", "소방용 펌프", "3")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // inflate(layoutInflater)로 초기화 한다
-        employeeBinding = ActivityEmployeeBinding.inflate(layoutInflater)
+        productionBinding = ActivityProductionBinding.inflate(layoutInflater)
 
         // binding.root 뷰를 화면에 표시하도록 설정
-        setContentView(employeeBinding.root)
+        setContentView(productionBinding.root)
 
         // W_work 에서 "사번"과"이름을 전달 받는 변수 --> 추후 "사용자" 검색에 사용(intent 사용)
         val value_1 = intent.getStringExtra("emp_id") //사번

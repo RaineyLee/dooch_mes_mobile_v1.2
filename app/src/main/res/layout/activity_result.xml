@@ -68,15 +68,15 @@
         android:id="@+id/divider4"
         android:layout_width="409dp"
         android:layout_height="1dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="100dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="1dp" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_width="370dp"
+        android:layout_height="80dp"
         android:gravity="center"
         android:text="확   인"
         android:textAlignment="center"

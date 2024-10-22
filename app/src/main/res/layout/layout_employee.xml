@@ -33,7 +33,7 @@
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:text="사번"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_lay_emp_id"
@@ -43,7 +43,7 @@
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="이름"
@@ -77,4 +77,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_lay_emp_id" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

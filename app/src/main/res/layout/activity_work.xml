@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:text="조회/입력"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:text="조회/입력"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +98,6 @@
         android:text="작업 시작"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -129,7 +128,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button4" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/txt_work_emp_id"
         android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -142,7 +141,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/txt_work_emp_name"
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:ems="10"
@@ -150,7 +149,7 @@
         android:textSize="16sp"
         android:hint="사원명"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintStart_toEndOf="@+id/editTextText2"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_emp_id"
         app:layout_constraintTop_toTopOf="parent" />
 
 
