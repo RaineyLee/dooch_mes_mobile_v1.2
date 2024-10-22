@@ -38,6 +38,18 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".W_employee"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
+
+        <activity
+            android:name=".W_work"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
+
         <!-- 스캐너 가로/세로 방향 옵션 -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
