@@ -41,6 +41,23 @@ class W_work : AppCompatActivity(){
             startActivityForResult(intent, 88)
         }
 
+        // "생산오더 번호" 입력후 조회버튼 클릭시 W_production 화면으로 이동
+        // 전환시 "생산오더 번호" 같이 전달
+        workBinding.btnWorkSearch2.setOnClickListener {
+
+            val order_id = workBinding.txtWorkOrderId.text.toString()
+
+            val intent = Intent(this, W_production::class.java)
+            intent.putExtra("order_id", order_id)
+            startActivityForResult(intent, 88)
+        }
+
+        // "중지사유" 입력 화면으로 이동
+        workBinding.btnWorkPause.setOnClickListener {
+            val intent = Intent(this, W_pause::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
