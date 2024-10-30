@@ -62,13 +62,6 @@
             android:theme="@style/Theme.AppCompat">
         </activity>
 
-        <!-- 스캐너 가로/세로 방향 옵션 -->
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation" />
-
-
     </application>
 
 </manifest>

@@ -15,12 +15,14 @@ class A_employee (val context: Context, val EmpList: ArrayList<D_employee>) : Ba
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.layout_employee, null)
 
-        val id = view.findViewById<TextView>(R.id.txt_lay_emp_id)
-        val name = view.findViewById<TextView>(R.id.txt_lay_emp_name)
+        val emp_id = view.findViewById<TextView>(R.id.txt_lay_emp_id)
+        val emp_name = view.findViewById<TextView>(R.id.txt_lay_emp_name)
+        val dept_name = view.findViewById<TextView>(R.id.txt_lay_dept_name)
 
         val employee = EmpList[position]
-        id.setText(employee.id)
-        name.setText(employee.name)
+        emp_id.text = employee.emp_id
+        emp_name.text = employee.emp_name
+        dept_name.text = employee.dept_name
 
         return view
     }

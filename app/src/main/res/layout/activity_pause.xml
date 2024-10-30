@@ -7,61 +7,70 @@
 
     <TextView
         android:id="@+id/txt_pause_emp_id"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:gravity="center"
+        android:gravity="left"
         android:text="11011"
+        android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_pause_emp_name"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:gravity="center"
         android:text="홍길동"
-        app:layout_constraintStart_toEndOf="@+id/txt_pause_emp_id"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_pause_emp_id"
+        app:layout_constraintStart_toEndOf="@+id/txt_pause_emp_id" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="생산오더"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_pause_emp_name"
+        app:layout_constraintEnd_toStartOf="@+id/txt_pause_order_id" />
 
     <TextView
         android:id="@+id/txt_pause_order_id"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:hint="생산오더 번호"
-        android:inputType="text"
-        android:textSize="14sp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="right"
+        android:hint="33221"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/txt_pause_prod_id"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:hint="1101268"
+        android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_pause_emp_id" />
 
     <TextView
         android:id="@+id/txt_pause_prod_name"
-        android:layout_width="240dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:gravity="center"
         android:hint="IOP-2XRL10-6R(3.7kW)-65A"
-        app:layout_constraintStart_toEndOf="@+id/txt_pause_prod_id"
-        app:layout_constraintTop_toBottomOf="@+id/txt_pause_order_id" />
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_pause_prod_id"
+        app:layout_constraintStart_toEndOf="@+id/txt_pause_prod_id" />
 
     <TextView
         android:id="@+id/txt_pause_prod_qty"
@@ -74,11 +83,12 @@
 
     <RadioGroup
         android:id="@+id/rg_pause_1"
-        android:layout_width="350dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="753dp"
+        android:layout_height="563dp"
+        android:layout_marginTop="100dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3">
 
@@ -87,7 +97,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="Sample_1             "
+            android:text="  Sample_1             "
+            android:textSize="50sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -96,7 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="Sample_2             "
+            android:text="  Sample_2             "
+            android:textSize="50sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -105,7 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="Sample_3             "
+            android:text="  Sample_3             "
+            android:textSize="50sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -114,7 +127,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="Sample_4             "
+            android:text="  Sample_4             "
+            android:textSize="50sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -122,7 +136,8 @@
             android:id="@+id/rb_pause_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sample_5             "
+            android:text="  Sample_5             "
+            android:textSize="50sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -130,19 +145,19 @@
 
     <TextView
         android:id="@+id/txt_pause_select_item"
-        android:layout_width="350dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:includeFontPadding="false"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <View
         android:id="@+id/divider3"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="1dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
@@ -151,11 +166,11 @@
 
     <View
         android:id="@+id/divider4"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="180dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,15 +178,17 @@
 
     <Button
         android:id="@+id/btn_pause_confirm"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_width="700dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="확   인"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider4" />
@@ -179,11 +196,39 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:text="선택항목"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_pause_select_item"
-        app:layout_constraintStart_toStartOf="@+id/txt_pause_select_item" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="  중지사유"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="@+id/rg_pause_1"
+        app:layout_constraintTop_toBottomOf="@+id/rg_pause_1" />
+
+    <TextView
+        android:id="@+id/txt_pause_cur_time"
+        android:layout_width="258dp"
+        android:layout_height="80dp"
+        android:hint="curr_time"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_pause_1" />
+
+    <TextView
+        android:id="@+id/txt_pause_batch_id"
+        android:layout_width="258dp"
+        android:layout_height="80dp"
+        android:hint="curr_time"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_pause_cur_time" />
+
+    <TextView
+        android:id="@+id/txt_pause_start_time"
+        android:layout_width="258dp"
+        android:layout_height="80dp"
+        android:hint="curr_time"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_pause_batch_id" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

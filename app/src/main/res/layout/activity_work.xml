@@ -8,158 +8,343 @@
     <Button
         android:id="@+id/btn_work_search_2"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="조회/입력"
-        android:textSize="14sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_order_id"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/txt_work_prod_id"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:text="1101268"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_work_order_id" />
 
     <TextView
-        android:id="@+id/txt_work_prod_name"
-        android:layout_width="250dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:text="IOP-2XRL10-6R(3.7kW)-65A"
-        app:layout_constraintStart_toEndOf="@+id/txt_work_prod_id"
-        app:layout_constraintTop_toBottomOf="@+id/txt_work_order_id" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/txt_work_text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="사원번호"
+        android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/txt_work_prod_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:hint="1101268"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_text_3" />
+
+    <TextView
+        android:id="@+id/txt_work_prod_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="IOP-2XRL10-6R(3.7kW)-65A"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_prod_id"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_prod_id" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
+        android:layout_marginBottom="200dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <View
         android:id="@+id/divider"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
+        android:layout_width="0dp"
+        android:layout_height="5dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="1dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_work_prod_id" />
 
-    <EditText
-        android:id="@+id/txt_work_order_id"
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="생산오더 번호"
-        android:inputType="text"
-        android:textSize="14sp"
+    <TextView
+        android:id="@+id/txt_work_text_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="생산오더"
+        android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_text_1" />
+
+    <TextView
+        android:id="@+id/txt_work_order_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:gravity="center"
+        android:hint="35315"
+        android:inputType="text"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_text_3"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_text_3" />
 
     <Button
         android:id="@+id/btn_work_search_1"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="조회/입력"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_emp_id"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btn_work_start"
-        android:layout_width="380dp"
+        android:layout_width="700dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="작업 시작"
-        android:textSize="60sp"
+        android:textSize="80sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <Button
         android:id="@+id/btn_work_pause"
-        android:layout_width="380dp"
+        android:layout_width="700dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="중지/재시작"
-        android:textSize="60sp"
+        android:text="작업중지/사유입력"
+        android:textSize="80sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_work_start" />
 
     <Button
         android:id="@+id/btn_work_end"
-        android:layout_width="380dp"
+        android:layout_width="700dp"
         android:layout_height="150dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="작업 종료"
-        android:textSize="60sp"
+        android:textSize="80sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_work_pause" />
 
-    <EditText
-        android:id="@+id/txt_work_emp_id"
-        android:layout_width="110dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="사원번호"
-        android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
+    <Button
+        android:id="@+id/btn_work_return"
+        android:layout_width="700dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="50dp"
+        android:text="메인화면"
+        android:textSize="80sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
-    <EditText
-        android:id="@+id/txt_work_emp_name"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:hint="사원명"
+    <TextView
+        android:id="@+id/txt_work_emp_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="11011"
         android:inputType="text"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintStart_toEndOf="@+id/txt_work_emp_id"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_text_1"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_text_1" />
+
+    <TextView
+        android:id="@+id/txt_work_emp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="홍길동"
+        android:inputType="text"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_text_2"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_text_2" />
+
+
+    <TextView
+        android:id="@+id/txt_work_text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="350dp"
+        android:text="사원명"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_emp_id"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txt_work_prod_qty"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="24dp"
-        android:gravity="center"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txt_work_prod_name"
-        app:layout_constraintTop_toBottomOf="@+id/txt_work_order_id" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="30 EA"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_order_id"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_text_2" />
 
+
+    <TextView
+        android:id="@+id/txt_work_work_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="TextView"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_work_end" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="작업소요시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_work_work_time"
+        app:layout_constraintStart_toStartOf="@+id/txt_work_work_time" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_work_work_time"
+        app:layout_constraintStart_toEndOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="종료시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_work_work_time"
+        app:layout_constraintStart_toEndOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="총소요시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/textView8" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="중지시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView9"
+        app:layout_constraintStart_toEndOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/txt_work_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="시작시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_work_time"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_work_time" />
+
+    <TextView
+        android:id="@+id/txt_work_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="종료시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_start_time"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_start_time" />
+
+    <TextView
+        android:id="@+id/txt_work_total_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="총소요시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_end_time"
+        app:layout_constraintStart_toEndOf="@+id/txt_work_end_time" />
+
+    <TextView
+        android:id="@+id/txt_work_pause_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="중지시간"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_total_time"
+        app:layout_constraintEnd_toStartOf="@+id/txt_work_batch_id"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="batch번호"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintStart_toEndOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/txt_work_batch_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="batch번호"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_work_pause_time"
+        app:layout_constraintStart_toEndOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="중지시작시간"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_start_time" />
+
+    <TextView
+        android:id="@+id/txt_work_stop_s_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="중지시작시간"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/textView29"
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_start_time" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="중지종료시간"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/txt_work_stop_e_time"
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_start_time" />
+
+    <TextView
+        android:id="@+id/txt_work_stop_e_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="39dp"
+        android:hint="중지종료시간"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_start_time" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
