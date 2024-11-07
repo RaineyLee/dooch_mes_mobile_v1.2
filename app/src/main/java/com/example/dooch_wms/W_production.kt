@@ -32,39 +32,64 @@ class W_production : ComponentActivity() {
         // binding.root 뷰를 화면에 표시하도록 설정
         setContentView(productionBinding.root)
 
-        // W_work 에서 "생산오더 ID"를 전달 받는 변수 --> 추후 "생산오더" 검색에 사용(intent 사용)
+        // W_work 에서 전달 받는 변수
+        // "생산오더" 검색에 사용(intent 사용)
         val order_id = intent.getStringExtra("order_id") //생산오더
+        // 사원번호, 사원명을 돌려 주기위해 받는 변수
+        val emp_id = intent.getStringExtra("emp_id")
+        val emp_name = intent.getStringExtra("emp_name")
 
-        // db 조회를 위해 전달 받은 값을 잠시 저장 하는 장소로 사용
-        productionBinding.txtProdTest1.setText(order_id)
+        productionBinding.txtProdEmpId.text = emp_id.toString()
+        productionBinding.txtProdEmpName.text = emp_name.toString()
 
-        get_data(order_id)
+        // 20241006 화면변경으로 인해 사용 안 함.
+//        // db 조회를 위해 전달 받은 값을 잠시 저장 하는 장소로 사용
+//        productionBinding.txtProdTest1.setText(order_id)
+
+        get_data("29309")
 
         // 리스트뷰의 특정 라인을 클릭하면 발생 하는 이벤트
         productionBinding.listProdOrder.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 // 리스트뷰의 선택 위치(라인?)를 D_employee에 대입하여 받음
                 val selectItem = parent.getItemAtPosition(position) as D_production
-
-                productionBinding.txtProdId.setText(selectItem.id)
-                productionBinding.txtProdName.setText(selectItem.name)
-                productionBinding.txtProdQty.setText((selectItem.qty))
+                productionBinding.txtProdOrderId.setText(selectItem.order_id)
+                productionBinding.txtProdId.setText(selectItem.item_id)
+                productionBinding.txtProdName.setText(selectItem.item_name)
+                productionBinding.txtProdQty.setText(selectItem.item_qty)
 
             }
 
         // 화면 아래 확인 버튼을 클릭하여 선택한 '생산오더', '제품명', '수량' 을 원)액티비티인 W_work로 보냄
         productionBinding.btnProdConfirm.setOnClickListener {
+            val order_id = productionBinding.txtProdOrderId.text.toString()
             val prod_id = productionBinding.txtProdId.text.toString()
             val prod_name = productionBinding.txtProdName.text.toString()
-            val prod_qty = productionBinding.txtProdQty.text.toString() + " EA"
+            val prod_qty = productionBinding.txtProdQty.text.toString()
+
+            val r_emp_id = productionBinding.txtProdEmpId.text.toString()
+            val r_emp_name = productionBinding.txtProdEmpName.text.toString()
 
             // 인텐트를 생성하고 값을 전달 함
-            val returnIntent = Intent()
-            returnIntent.putExtra("prod_id", prod_id)
-            returnIntent.putExtra("prod_name", prod_name)
-            returnIntent.putExtra("prod_qty", prod_qty)
-            setResult(RESULT_OK, returnIntent)
-            finish()
+            val intent = Intent(this, W_work::class.java)
+            //생산오더를 조회 하고 값을 W_work 화면에 전달하는 변수
+            intent.putExtra("order_id", order_id)
+            intent.putExtra("prod_id", prod_id)
+            intent.putExtra("prod_name", prod_name)
+            intent.putExtra("prod_qty", prod_qty)
+            //W_work 화면에서 전달 받은 값을 돌려주는 변수
+            intent.putExtra("r_emp_id", r_emp_id)
+            intent.putExtra("r_emp_name", r_emp_name)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+//
+//            val returnIntent = Intent()
+//            returnIntent.putExtra("order_id", order_id)
+//            returnIntent.putExtra("prod_id", prod_id)
+//            returnIntent.putExtra("prod_name", prod_name)
+//            returnIntent.putExtra("prod_qty", prod_qty)
+//            setResult(RESULT_OK, returnIntent)
+//            finish()
         }
     }
 
@@ -102,9 +127,8 @@ class W_production : ComponentActivity() {
             val empArrayList = ArrayList(result)
 
             // ListView에 어댑터 설정
-            val adapter = A_employee(this, empArrayList)
+            val adapter = A_production(this, empArrayList)
             productionBinding.listProdOrder.adapter = adapter
         }
 
     }
-}

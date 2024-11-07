@@ -2,6 +2,7 @@ package com.example.dooch_wms
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import com.example.dooch_wms.databinding.ActivityPauseBinding
 
@@ -24,17 +25,32 @@ class W_pause: ComponentActivity() {
 //        val prod_name = intent.getStringExtra("prod_name") // 제품명
 //        val prod_qty = intent.getStringExtra("prod_qty") // 제품 수량
 
+        // 20241106 화면 변경으로 현재 사용하지 않음.
         // 인텐트에서 current_time 값을 가져온다
-        val cur_time = intent.getIntExtra("current_time", 0) // 기본값 0
-        val batch_id = intent.getIntExtra("batch_id", 0) // 기본값 0
-        val start_time = intent.getStringExtra("start_time") // 기본값 0
-        
+//        val cur_time = intent.getIntExtra("current_time", 0) // 기본값 0
+//        val batch_id = intent.getIntExtra("batch_id", 0) // 기본값 0
+//        val start_time = intent.getStringExtra("start_time") // 기본값 0
+
+        // W_work 화면에서 값을 전달 받음
+        val order_id = intent.getStringExtra("order_id")
+        val prod_id = intent.getStringExtra("prod_id")
+        val prod_name = intent.getStringExtra("prod_name")
+        val batch_id = intent.getStringExtra("batch_id")
+
+
+        // intent를 통해 받은 값을 상위 항목에 입력 함.
+        pauseBinding.txtPauseOrderId.text = order_id
+        pauseBinding.txtPauseProdId.text = prod_id
+        pauseBinding.txtPauseProdName.text = prod_name
+        pauseBinding.txtPauseBatchId.text = batch_id
+
+        // 20241106 화면구성 변경으로 사용하지 않음.
         // TextView에 현재 시간을 표시
-        val min = cur_time / 60
-        val sec = cur_time % 60
-        pauseBinding.txtPauseCurTime.text = String.format("%02d:%02d", min, sec)
-        pauseBinding.txtPauseBatchId.text = batch_id.toString()
-        pauseBinding.txtPauseStartTime.text = start_time.toString()
+//        val min = cur_time / 60
+//        val sec = cur_time % 60
+//        pauseBinding.txtPauseCurTime.text = String.format("%02d:%02d", min, sec)
+//        pauseBinding.txtPauseBatchId.text = batch_id.toString()
+//        pauseBinding.txtPauseStartTime.text = start_time.toString()
 
         pauseBinding.rgPause1.setOnCheckedChangeListener { group, checkedId ->
             when(checkedId){
@@ -61,7 +77,10 @@ class W_pause: ComponentActivity() {
 
                 // "W_work" 화면으로 이동 intent flag 사용(이전화면 내용 복구)
         pauseBinding.btnPauseConfirm.setOnClickListener {
+            val pause_reason: String? = pauseBinding.txtPauseSelectItem.text.toString()
+
             val intent = Intent(this, W_work::class.java)
+            intent.putExtra("pause_reason", pause_reason)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
         }

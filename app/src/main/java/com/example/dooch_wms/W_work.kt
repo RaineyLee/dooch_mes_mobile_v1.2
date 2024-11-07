@@ -5,10 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.input.key.Key.Companion.Window
 import com.example.dooch_wms.databinding.ActivityPauseBinding
 import com.example.dooch_wms.databinding.ActivityWorkBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
@@ -90,6 +95,44 @@ class W_work : AppCompatActivity() {
         setContentView(workBinding.root)
 
         // 초기 화면 설정
+        // MyApp 인스턴스 가져오기
+        val app = applicationContext as MyApp
+
+        // 인텐트에서 값을 가져온다
+        // 사원정보에서 가져온다
+        val empIdFromIntent = intent.getStringExtra("emp_id") ?: ""
+        val empNameFromIntent = intent.getStringExtra("emp_name") ?: ""
+        //생산오더 정보에서 가져온다
+        val orderIdFromIntent = intent.getStringExtra("order_id") ?: ""
+        val prodIdFromIntent = intent.getStringExtra("prod_id") ?: ""
+        val prodNameFromIntent = intent.getStringExtra("prod_name") ?: ""
+        val prodQtyFromIntent = intent.getStringExtra("prod_qty") ?: ""
+
+        val r_emp_id = intent.getStringExtra("r_emp_id") ?: ""
+        val r_emp_name = intent.getStringExtra("r_emp_name") ?: ""
+
+        // Intent에서 가져온 값이 null일 경우 기본값 설정
+        app.emp_id = if (empIdFromIntent.isNotEmpty()) empIdFromIntent else ""
+        app.emp_name = if (empNameFromIntent.isNotEmpty()) empNameFromIntent else ""
+
+        app.order_id = if (orderIdFromIntent.isNotEmpty()) orderIdFromIntent else ""
+        app.prod_id = if (prodIdFromIntent.isNotEmpty()) prodIdFromIntent else ""
+        app.prod_name = if (prodNameFromIntent.isNotEmpty()) prodNameFromIntent else ""
+        app.prod_qty = if (prodQtyFromIntent.isNotEmpty()) prodQtyFromIntent else ""
+
+        app.r_emp_id = if (r_emp_id.isNotEmpty()) r_emp_id else ""
+        app.r_emp_name = if (r_emp_name.isNotEmpty()) r_emp_name else ""
+
+        // 전역 변수 가져오기 및 TextView에 표시
+        // 사용자 정보 입력
+        workBinding.txtWorkEmpId.text = app.emp_id
+        workBinding.txtWorkEmpName.text = app.emp_name
+        // 생산오더 정보 입력
+        workBinding.txtWorkOrderId.text = app.order_id
+        workBinding.txtWorkProdId.text = app.prod_id
+        workBinding.txtWorkProdName.text = app.prod_name
+        workBinding.txtWorkProdQty.text = app.prod_qty
+
         // 시작시간 설정
         workBinding.txtWorkStartTime.text = ""
         // 중지, 종료 버튼, 배치 번호 비활성화 및 배치번호 갱신
@@ -98,12 +141,21 @@ class W_work : AppCompatActivity() {
         workBinding.btnWorkEnd.isEnabled = false
         workBinding.txtWorkBatchId.text = batch.toString()
 
-        // http 통신을 위한 retrofit 설정
-        // retrofit 객체 생성
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.197:80/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        // 인텐트에서 값을 가져온다
+        // 중지 화면에서 중지 사유를 가져온다.
+        // 20241106 화면구성 변경으로 사용하지 않는다.
+//        val pause_reason = intent.getStringExtra("pause_reason")
+//        workBinding.txtReason.text = pause_reason.toString()
+
+//        // 임직원 화면에서 사용자 정보를 가져온다.
+//        app.emp_id =  intent.getStringExtra("emp_id")
+//        app.emp_name = intent.getStringExtra("emp_name")
+//        workBinding.txtWorkEmpId.text = app.emp_id
+//        workBinding.txtWorkEmpName.text = app.emp_name
+
+        // 생산오더 화면에서 생산계획 정보를 가져온다.
+
+
 
         // "사원번호", "사원명" 조회버튼 클릭시 W_employee 화면으로 이동
         // 전환시 "사원번호", "사원명"을 같이 전달
@@ -124,9 +176,45 @@ class W_work : AppCompatActivity() {
 
             val order_id = workBinding.txtWorkOrderId.text.toString()
 
-            val intent = Intent(this, W_production::class.java)
-            intent.putExtra("order_id", order_id)
-            startActivityForResult(intent, 88)
+            // http 통신을 위한 retrofit 설정
+            // retrofit 객체 생성
+            val retrofit = Retrofit.Builder()
+                .baseUrl("http://192.168.1.197:80/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            val prodservice: S_production = retrofit.create(S_production::class.java)
+
+            prodservice.requestProdInfo(order_id).enqueue(object : Callback<D_production> { //받는 값이 List 형식이면 Callback<List<D_production>>
+                override fun onFailure(call: Call<D_production>, t: Throwable) {
+                    val dialog = AlertDialog.Builder(this@W_work)
+                    dialog.setTitle("에러")
+                    dialog.setMessage(t.message)
+                    dialog.show()
+                }
+                override fun onResponse(call: Call<D_production>, response: Response<D_production>) {  //받는 값이 List 형식이면 Callback<List<D_production>>
+                    if (response.isSuccessful && response.body() != null) {
+                        val prodList = response.body()!!
+                        // body로 받은 값을 할당 하는 코드
+                        workBinding.txtWorkOrderId.text = prodList.order_id.toString()
+                        workBinding.txtWorkProdId.text = prodList.item_id.toString()
+                        workBinding.txtWorkProdName.text = prodList.item_name.toString()
+                        workBinding.txtWorkProdQty.text = prodList.item_qty.toString()
+                    } else {
+                        // 오류 처리 코드
+                        Log.d("Response", response.errorBody()?.string() ?: "No error body")
+                        Toast.makeText(this@W_work, "유효한 생산오더가 아닙니다. 생산오더를 다시 확인해 주세요.", Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
+
+            // intent를 사용하지 않고 직접 조회후 없으면 에러 메시지 띄우기로 변경
+//            val intent = Intent(this, W_production::class.java)
+//            intent.putExtra("order_id", order_id)
+//            intent.putExtra("emp_id", app.emp_id)
+//            intent.putExtra("emp_name", app.emp_name)
+//            startActivityForResult(intent, 88)
+
         }
 
         // 시작버튼 클릭 리스너 설정
@@ -139,10 +227,11 @@ class W_work : AppCompatActivity() {
                 workBinding.txtWorkStartTime.text = start_time // TextView에도 설정
             }
 
-            if(stop_e_time.isNullOrEmpty() && batch > 0) {
-                stop_e_time = System.currentTimeMillis().toString() // start_time에 현재 시간 저장
-                workBinding.txtWorkStopETime.text = stop_e_time // TextView에도 설정
-            }
+            // 20241106 화면구성 변경으로 사용하지 않음.
+//            if(stop_e_time.isNullOrEmpty() && batch > 0) {
+//                stop_e_time = System.currentTimeMillis().toString() // start_time에 현재 시간 저장
+//                workBinding.txtWorkStopETime.text = stop_e_time // TextView에도 설정
+//            }
 
             workBinding.txtWorkBatchId.text = batch.toString()
 
@@ -159,10 +248,14 @@ class W_work : AppCompatActivity() {
         }
 
         workBinding.btnWorkPause.setOnClickListener {
+
             // 중지 시간 기록(업데이트 값)
-            workBinding.txtWorkStopSTime.text = System.currentTimeMillis().toString()
+            // 20241106 화면구성 변경으로 사용하지 않음.
+//            workBinding.txtWorkStopSTime.text = System.currentTimeMillis().toString()
+
             // 중지 버튼 클릭시 마다 batch 번호 +1
             batch++
+
             // 화면 복귀시 버튼 비활성화
             workBinding.btnWorkPause.isEnabled = false
             workBinding.btnWorkEnd.isEnabled = false
@@ -170,13 +263,25 @@ class W_work : AppCompatActivity() {
             if (TimerManager.isTimerRunning()) {
                 stopTimerAndUpdateUI()
             } else {
+                // 타이머가 중지상태 일경우 버튼을 눌러도 이벤트가 발생하지 않는다.
                 return@setOnClickListener
             }
-            // 중지 화면으로 이동
-            val currentTime = TimerManager.getTime()
-            val intent = Intent(this, W_pause::class.java)
-//            intent.putExtra("current_time", currentTime) // 현재 시간을 전달
-//            intent.putExtra("batch_id", batch)
+//            // 중지 화면으로 보낼 변수값 설정
+//            val order_id: String = workBinding.txtWorkOrderId.text.toString()
+//            val prod_id: String = workBinding.txtWorkProdId.text.toString()
+//            val prod_name: String = workBinding.txtWorkProdName.text.toString()
+//            val batch_id: String = workBinding.txtWorkBatchId.text.toString()
+
+            // 20241106 화면변경으로 사용하지 않음
+//            val currentTime = TimerManager.getTime()
+
+//            // 중지 화면으로 값 전달
+//            val intent = Intent(this, W_pause::class.java)
+//            intent.putExtra("order_id", order_id) // 생산오더 id 전달
+//            intent.putExtra("prod_id", prod_id) // 제품 id 전달
+//            intent.putExtra("prod_name", prod_name) // 제품명 전달
+//            intent.putExtra("batch_id", batch_id) // 배차 id 전달
+//            startActivity(intent)
 //            // start_time이 null이 아닌 경우에만 전달
 //            if (!start_time.isNullOrEmpty()) {
 //                intent.putExtra("start_time", start_time)
@@ -201,6 +306,20 @@ class W_work : AppCompatActivity() {
             workBinding.txtWorkTotalTime.text = total_time
 
             endWorkAndDisplayTimes()
+            // 종료화면으로 이동 <-- 건네줄 값 셋팅 필요
+//            val intent = Intent(this, W_result::class.java)
+//            intent.putExtra("pause_reason", pause_reason)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+//            startActivity(intent)
+        }
+
+        // 메인화면 돌아가기
+        workBinding.btnWorkReturn.setOnClickListener {
+
+            // 메인화면으로 이동
+            val intent = Intent(this, MainActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
         }
     }
 

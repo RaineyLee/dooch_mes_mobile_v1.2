@@ -7,22 +7,25 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.dooch_wms.databinding.ActivityProductionBinding
+import com.example.dooch_wms.databinding.LayoutProdOrderBinding
 
-class A_product (val context: Context, val ProdList: ArrayList<D_production>) : BaseAdapter()
+class A_production (val context: Context, val ProdList: ArrayList<D_production>) : BaseAdapter()
 {
-    private lateinit var productionBinding: ActivityProductionBinding
+    private lateinit var LayoutProdOrderBinding: ActivityProductionBinding
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View = LayoutInflater.from(context).inflate(R.layout.layout_prod_order, null)
 
-        val prod_id = view.findViewById<TextView>(R.id.txt_lay_prod_id)
-        val prod_name = view.findViewById<TextView>(R.id.txt_lay_prod_name)
-        val prod_qty = view.findViewById<TextView>(R.id.txt_lay_prod_qty)
+        val order_id = view.findViewById<TextView>(R.id.txt_lay_order_id)
+        val item_id = view.findViewById<TextView>(R.id.txt_lay_prod_id)
+        val item_name = view.findViewById<TextView>(R.id.txt_lay_prod_name)
+        val item_qty = view.findViewById<TextView>(R.id.txt_lay_prod_qty)
 
         val product = ProdList[position]
-        prod_id.setText(product.id)
-        prod_name.setText(product.name)
-        prod_qty.setText(product.qty)
+        order_id.setText(product.order_id)
+        item_id.setText(product.item_id)
+        item_name.setText(product.item_name)
+        item_qty.setText(product.item_qty)
 
         return view
     }

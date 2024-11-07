@@ -7,80 +7,85 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="11011     홍길동"
         android:textAlignment="textStart"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_work_order_id"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="341dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="생산오더 번호"
         android:inputType="text"
-        android:textSize="14sp"
-        android:gravity="center"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_work_prod_id"
-        android:layout_width="120dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:hint="1101268"
         android:text="1101268"
+        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/txt_work_prod_name"
-        android:layout_width="240dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
         android:hint="IOP-2XRL10-6R(3.7kW)-65A"
         android:text="IOP-2XRL10-6R(3.7kW)-65A"
+        android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_work_order_id" />
 
     <View
         android:id="@+id/divider3"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:layout_marginTop="36dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/txt_work_prod_id"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_prod_id" />
 
     <View
         android:id="@+id/divider4"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginBottom="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:layout_marginBottom="216dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="9dp" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="370dp"
-        android:layout_height="80dp"
+        android:layout_width="700dp"
+        android:layout_height="150dp"
         android:gravity="center"
         android:text="확   인"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="84sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,9 +95,9 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:text="4h49m"
-        android:textSize="48sp"
+        android:textSize="84sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView15"
         app:layout_constraintStart_toEndOf="@+id/textView15" />
 
@@ -100,10 +105,10 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="124dp"
         android:text="작업시간"
-        android:textSize="48sp"
+        android:textSize="96sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
@@ -111,10 +116,10 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="72dp"
         android:text="중지시간"
-        android:textSize="48sp"
+        android:textSize="96sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -122,9 +127,9 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:text="30m"
-        android:textSize="48sp"
+        android:textSize="84sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView17"
         app:layout_constraintStart_toEndOf="@+id/textView17" />
 
@@ -132,27 +137,21 @@
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="72dp"
         android:text="총 작업시간"
-        android:textSize="56sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="96sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="32dp"
         android:text="5h19m"
-        android:textSize="56sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="84sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView19"
+        app:layout_constraintStart_toEndOf="@+id/textView19" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

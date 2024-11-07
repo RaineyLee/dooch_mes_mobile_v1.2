@@ -59,15 +59,22 @@ class W_employee : ComponentActivity() {
         employeeBinding.btnEmpConfirm.setOnClickListener        {
             val emp_id = employeeBinding.txtEmpEmpId.text.toString()
             val emp_name = employeeBinding.txtEmpEmpName.text.toString()
-            val dept_name = employeeBinding.txtEmpDeptName.text.toString()
 
-            // 인텐트를 생성하고 값을 전달 함
-            val returnIntent = Intent()
-            returnIntent.putExtra("emp_id", emp_id)
-            returnIntent.putExtra("emp_name", emp_name)
-            returnIntent.putExtra("dept_name", emp_name)
-            setResult(RESULT_OK, returnIntent)
-            finish()
+            Log.d("테스트", emp_id)
+
+//            // 인텐트를 생성하고 값을 전달 함
+//            val returnIntent = Intent()
+//            returnIntent.putExtra("emp_id", emp_id)
+//            returnIntent.putExtra("emp_name", emp_name)
+//            returnIntent.putExtra("dept_name", dept_name)
+//            setResult(RESULT_OK, returnIntent)
+//            finish()
+
+            val intent = Intent(this, W_work::class.java)
+            intent.putExtra("emp_id", emp_id)
+            intent.putExtra("emp_name", emp_name)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
         }
    }
     private fun get_data(emp_id: String?, emp_name: String?) {
@@ -78,7 +85,7 @@ class W_employee : ComponentActivity() {
 
         val qrservice: S_employee = retrofit.create(S_employee::class.java)
 
-        qrservice.requestEmpInfo(emp_id, emp_name).enqueue(object : Callback<List<D_employee>> {
+        qrservice.requestEmpInfo(emp_id, emp_name).enqueue(object : Callback<List<D_employee>> { //받는 값이 Object 형식이면 Callback<D_production>
             override fun onFailure(call: Call<List<D_employee>>, t: Throwable) {
                 val dialog = AlertDialog.Builder(this@W_employee)
                 dialog.setTitle("에러")
@@ -86,7 +93,7 @@ class W_employee : ComponentActivity() {
                 dialog.show()
             }
 
-            override fun onResponse(call: Call<List<D_employee>>, response: Response<List<D_employee>>) {
+            override fun onResponse(call: Call<List<D_employee>>, response: Response<List<D_employee>>) { //받는 값이 Object 형식이면 Callback<D_production>
                 if (response.isSuccessful && response.body() != null) {
                     val empList = response.body()!!
                     initializeViews(empList) // 리스트뷰에 데이터 설정
