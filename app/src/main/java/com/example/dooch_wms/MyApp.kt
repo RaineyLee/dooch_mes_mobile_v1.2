@@ -13,4 +13,6 @@ class MyApp : Application() {
 
     var r_emp_id: String? = null
     var r_emp_name: String? = null
+
+    var total_time: String? = null
 }

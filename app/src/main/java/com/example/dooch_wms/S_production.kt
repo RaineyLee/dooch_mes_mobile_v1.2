@@ -13,11 +13,10 @@ interface S_production {
 //        @Field("code") code:String
     ) : Call<D_production> // 받아서 Login 클래스로 전달
 
-//    @FormUrlEncoded
-//    @POST("www/doo_item_info.php") // 웹서버의 메인 다음에 나오는 주소
-//    fun requestItemLoc(
-//        @Field("item_id") item_id: String?
-////        @Field("item_loc") item_loc: String?
-////        @Field("code") code:String
-//    ) : Call<D_ItemData> // 받아서 Login 클래스로 전달
+    @FormUrlEncoded
+    @POST("update_production_info.php") // 웹서버의 메인 다음에 나오는 주소
+    fun updateProdInfo(
+        @Field("order_id") order_id: String?
+//        @Field("code") code:String
+    ) : Call<D_msg> // 받아서 Message 클래스로 전달
 }

@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    >
 
     <Button
         android:id="@+id/btn_work_search_2"
@@ -23,6 +25,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="사원번호"
+        android:textColor="@color/black"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -208,10 +211,9 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="32dp"
         android:text="작업소요시간"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
         app:layout_constraintStart_toStartOf="@+id/txt_work_work_time"
         app:layout_constraintTop_toBottomOf="@+id/btn_work_end" />
 
@@ -219,39 +221,37 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:text="시작시간"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toStartOf="@+id/textView8" />
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/txt_work_work_time" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:text="종료시간"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_work_pause_time"
-        app:layout_constraintEnd_toStartOf="@+id/textView14" />
+        app:layout_constraintBottom_toTopOf="@+id/txt_work_work_time"
+        app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
         android:text="총소요시간"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/txt_work_total_time"
-        app:layout_constraintStart_toStartOf="@+id/txt_work_total_time" />
+        app:layout_constraintStart_toEndOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
         android:text="중지시간"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider2"
+        app:layout_constraintBottom_toBottomOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
@@ -269,18 +269,17 @@
         android:layout_height="wrap_content"
         android:hint="종료시간"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/txt_work_total_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:hint="총소요시간"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toStartOf="@+id/txt_work_batch_id" />
+        app:layout_constraintStart_toStartOf="@+id/textView9" />
 
     <TextView
         android:id="@+id/txt_work_pause_time"
@@ -298,7 +297,8 @@
         android:hint="batch번호"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/txt_work_batch_id"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView9" />
 
     <TextView
         android:id="@+id/txt_work_batch_id"
@@ -307,6 +307,17 @@
         android:hint="batch번호"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/txt_work_cur_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:hint="cur_time"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_work_end" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dooch_wms.databinding.ActivityPauseBinding
 
-class W_pause: ComponentActivity() {
+class W_pause: AppCompatActivity() {
     // 바인딩 선언
     private lateinit var pauseBinding: ActivityPauseBinding
 
@@ -36,6 +37,7 @@ class W_pause: ComponentActivity() {
         val prod_id = intent.getStringExtra("prod_id")
         val prod_name = intent.getStringExtra("prod_name")
         val batch_id = intent.getStringExtra("batch_id")
+        Log.d("배치값", batch_id.toString())
 
 
         // intent를 통해 받은 값을 상위 항목에 입력 함.

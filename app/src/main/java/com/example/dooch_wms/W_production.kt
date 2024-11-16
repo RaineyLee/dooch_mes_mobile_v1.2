@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dooch_wms.databinding.ActivityProductionBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +16,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class W_production : ComponentActivity() {
+class W_production : AppCompatActivity() {
     private lateinit var productionBinding: ActivityProductionBinding
 
 //    var ProdList = arrayListOf<D_production>(
@@ -99,27 +100,30 @@ class W_production : ComponentActivity() {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            val qrservice: S_production = retrofit.create(S_production::class.java)
-
-            qrservice.requestEmpInfo(order_id).enqueue(object : Callback<List<D_production>> {
-                override fun onFailure(call: Call<List<D_production>>, t: Throwable) {
-                    val dialog = AlertDialog.Builder(this@W_production)
-                    dialog.setTitle("에러")
-                    dialog.setMessage(t.message)
-                    dialog.show()
-                }
-
-                override fun onResponse(call: Call<List<D_production>>, response: Response<List<D_production>>) {
-                    if (response.isSuccessful && response.body() != null) {
-                        val empList = response.body()!!
-                        initializeViews(empList) // 리스트뷰에 데이터 설정
-                    } else {
-                        // 오류 처리 코드
-                        Log.d("Response", response.errorBody()?.string() ?: "No error body")
-                        Toast.makeText(this@W_production, "데이터 로드 실패", Toast.LENGTH_LONG).show()
-                    }
-                }
-            })
+//            val prodservice: S_production = retrofit.create(S_production::class.java)
+//
+//            prodservice.requestProdInfo(order_id).enqueue(object : Callback<D_production> { //받는 값이 List 형식이면 Callback<List<D_production>>
+//                override fun onFailure(call: Call<D_production>, t: Throwable) {
+//                    val dialog = AlertDialog.Builder(this@W_work)
+//                    dialog.setTitle("에러")
+//                    dialog.setMessage(t.message)
+//                    dialog.show()
+//                }
+//                override fun onResponse(call: Call<D_production>, response: Response<D_production>) {  //받는 값이 List 형식이면 Callback<List<D_production>>
+//                    if (response.isSuccessful && response.body() != null) {
+//                        val prodList = response.body()!!
+//                        // body로 받은 값을 할당 하는 코드
+//                        workBinding.txtWorkOrderId.setText(prodList.order_id.toString())
+//                        workBinding.txtWorkProdId.text = prodList.item_id.toString()
+//                        workBinding.txtWorkProdName.text = prodList.item_name.toString()
+//                        workBinding.txtWorkProdQty.text = prodList.item_qty.toString()
+//                    } else {
+//                        // 오류 처리 코드
+//                        Log.d("Response", response.errorBody()?.string() ?: "No error body")
+//                        Toast.makeText(this@W_work, "유효한 생산오더가 아닙니다. 생산오더를 다시 확인해 주세요.", Toast.LENGTH_LONG).show()
+//                    }
+//                }
+//            })
         }
 
         private fun initializeViews(result: List<D_production>) {
