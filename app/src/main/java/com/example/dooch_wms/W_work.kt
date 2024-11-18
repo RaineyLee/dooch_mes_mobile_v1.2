@@ -219,13 +219,12 @@ class W_work : AppCompatActivity() {
                 startTimerAndUpdateUI()
             }
 
-            // 생산오더에 emp_id, emp_name을 입력하고, status를 '릴리스됨'에서 '시작됨'으로 변경
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.1.197:80/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            val order_id = workBinding.txtWorkOrderId.text.toString()
+            val emp_id = workBinding.txtWorkEmpId.text.toString()
+            val emp_name = workBinding.txtWorkEmpName.text.toString()
 
-            val prodservice: S_production = retrofit.create(S_production::class.java)
+            // 생산오더에 emp_id, emp_name을 입력하고, status를 '릴리스됨'에서 '시작됨'으로 변경
+            editOrderStart(order_id, emp_id, emp_name, "시작됨")
         }
 
         workBinding.btnWorkPause.setOnClickListener {
@@ -385,7 +384,7 @@ class W_work : AppCompatActivity() {
         outState.putString("start_time", startTime)
     }
 
-    fun calculateTimeDifference(timeA: String, timeB: String): String {
+    private fun calculateTimeDifference(timeA: String, timeB: String): String {
         // Define the time format
         val timeFormat = SimpleDateFormat("mm:ss")
 
@@ -402,6 +401,37 @@ class W_work : AppCompatActivity() {
 
         // Format and return the result as mm:ss
         return String.format("%02d:%02d", minutes, seconds)
+    }
+
+    private fun editOrderStart(order_id: String, emp_id: String, emp_name: String, status: String){
+
+        // 생산오더에 emp_id, emp_name을 입력하고, status를 '릴리스됨'에서 '시작됨'으로 변경
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.1.197:80/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val prodservice: S_production = retrofit.create(S_production::class.java)
+
+        prodservice.updateProdInfo(order_id, emp_id, emp_name, status).enqueue(object : Callback<D_msg> { //받는 값이 List 형식이면 Callback<List<D_production>>
+            override fun onFailure(call: Call<D_msg>, t: Throwable) {
+                val dialog = AlertDialog.Builder(this@W_work)
+                dialog.setTitle("에러")
+                dialog.setMessage(t.message)
+                dialog.show()
+            }
+            override fun onResponse(call: Call<D_msg>, response: Response<D_msg>) {  //받는 값이 List 형식이면 Callback<List<D_production>>
+                val success = response.body()!!
+                val dialog = AlertDialog.Builder(this@W_work)
+                if (response.isSuccessful) {
+                    dialog.setTitle(success.code)
+                    dialog.setMessage((success.msg))
+                } else {
+                    dialog.setTitle(success.code)
+                    dialog.setMessage((success.msg))
+                }
+            }
+        })
     }
 }
 

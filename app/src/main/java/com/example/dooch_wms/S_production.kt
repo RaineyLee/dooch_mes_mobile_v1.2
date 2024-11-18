@@ -16,7 +16,9 @@ interface S_production {
     @FormUrlEncoded
     @POST("update_production_info.php") // 웹서버의 메인 다음에 나오는 주소
     fun updateProdInfo(
-        @Field("order_id") order_id: String?
-//        @Field("code") code:String
+        @Field("order_id") order_id: String?,
+        @Field("emp_id") emp_id: String?,
+        @Field("emp_name") emp_name: String?,
+        @Field("status") status: String?
     ) : Call<D_msg> // 받아서 Message 클래스로 전달
 }

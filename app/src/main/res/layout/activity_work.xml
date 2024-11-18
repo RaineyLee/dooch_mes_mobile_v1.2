@@ -37,6 +37,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_work_text_3" />
 
@@ -46,15 +47,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_prod_id"
         app:layout_constraintStart_toEndOf="@+id/txt_work_prod_id" />
 
     <View
         android:id="@+id/divider2"
         android:layout_width="0dp"
-        android:layout_height="5dp"
+        android:layout_height="3dp"
         android:layout_marginBottom="200dp"
-        android:background="?android:attr/listDivider"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -62,11 +64,11 @@
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
-        android:layout_height="5dp"
+        android:layout_height="3dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="1dp"
-        android:background="?android:attr/listDivider"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +82,7 @@
         android:layout_marginTop="16dp"
         android:text="생산오더"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_work_text_1" />
 
@@ -88,8 +91,12 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="-8dp"
         android:gravity="center"
+        android:hint="ID 입력"
         android:inputType="text"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_text_3"
         app:layout_constraintStart_toEndOf="@+id/txt_work_text_3" />
@@ -163,6 +170,7 @@
         android:layout_marginStart="16dp"
         android:inputType="text"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_text_1"
         app:layout_constraintStart_toEndOf="@+id/txt_work_text_1" />
 
@@ -173,6 +181,7 @@
         android:layout_marginStart="16dp"
         android:inputType="text"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_text_2"
         app:layout_constraintStart_toEndOf="@+id/txt_work_text_2" />
 
@@ -184,6 +193,7 @@
         android:layout_marginStart="350dp"
         android:text="사원명"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_emp_id"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -193,6 +203,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/txt_work_order_id"
         app:layout_constraintStart_toEndOf="@+id/txt_work_text_2" />
 
@@ -204,6 +215,7 @@
         android:layout_marginStart="32dp"
         android:text="TextView"
         android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -214,6 +226,7 @@
         android:layout_marginTop="32dp"
         android:text="작업소요시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/txt_work_work_time"
         app:layout_constraintTop_toBottomOf="@+id/btn_work_end" />
 
@@ -223,6 +236,7 @@
         android:layout_height="wrap_content"
         android:text="시작시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/txt_work_work_time" />
 
@@ -232,6 +246,7 @@
         android:layout_height="wrap_content"
         android:text="종료시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/txt_work_work_time"
         app:layout_constraintStart_toEndOf="@+id/textView6" />
 
@@ -242,6 +257,7 @@
         android:layout_marginStart="100dp"
         android:text="총소요시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/txt_work_total_time"
         app:layout_constraintStart_toEndOf="@+id/textView7" />
 
@@ -251,6 +267,7 @@
         android:layout_height="wrap_content"
         android:text="중지시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -260,6 +277,7 @@
         android:layout_height="wrap_content"
         android:hint="시작시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -269,6 +287,7 @@
         android:layout_height="wrap_content"
         android:hint="종료시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
         app:layout_constraintStart_toEndOf="@+id/textView8" />
 
@@ -278,6 +297,7 @@
         android:layout_height="wrap_content"
         android:hint="총소요시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintStart_toStartOf="@+id/textView9" />
 
@@ -287,6 +307,7 @@
         android:layout_height="wrap_content"
         android:hint="중지시간"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -296,6 +317,7 @@
         android:layout_height="wrap_content"
         android:hint="batch번호"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/txt_work_batch_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView9" />
@@ -306,6 +328,7 @@
         android:layout_height="wrap_content"
         android:hint="batch번호"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/divider2"
         app:layout_constraintStart_toStartOf="@+id/textView28" />
 
@@ -317,6 +340,7 @@
         android:layout_marginEnd="16dp"
         android:hint="cur_time"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_work_end" />
 
