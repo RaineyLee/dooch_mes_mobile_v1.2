@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#990033"
     android:layout_width="match_parent"
     android:layout_height="130dp">
 
@@ -13,6 +14,7 @@
         android:layout_marginTop="16dp"
         android:text="TextView"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/textView25"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,6 +27,7 @@
         android:layout_marginBottom="16dp"
         android:text="TextView"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView26"
         app:layout_constraintTop_toBottomOf="@+id/txt_lay_emp_id" />
@@ -36,6 +39,7 @@
         android:layout_marginStart="24dp"
         android:text="사번"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/txt_lay_emp_id"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -48,6 +52,7 @@
         android:layout_marginBottom="16dp"
         android:text="이름"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
@@ -61,6 +66,7 @@
         android:layout_marginBottom="16dp"
         android:text="TextView"
         android:textSize="30sp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_lay_emp_id" />

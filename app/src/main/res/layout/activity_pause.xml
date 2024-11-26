@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background">
 
     <TextView
         android:id="@+id/textView3"
@@ -11,10 +12,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="생산오더"
-        android:textSize="50sp"
+        android:text="[생산오더]"
+        android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="[NO.]"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_pause_batch_id"
+        app:layout_constraintEnd_toStartOf="@+id/txt_pause_batch_id" />
 
     <TextView
         android:id="@+id/txt_pause_order_id"
@@ -23,7 +36,8 @@
         android:layout_marginStart="24dp"
         android:gravity="right"
         android:hint="33221"
-        android:textSize="50sp"
+        android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintStart_toEndOf="@+id/textView3" />
 
@@ -33,51 +47,51 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:gravity="center"
+        android:textAlignment="textStart"
         android:hint="1101268"
-        android:textSize="50sp"
+        android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_pause_order_id" />
 
     <TextView
         android:id="@+id/txt_pause_prod_name"
-        android:layout_width="wrap_content"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:gravity="center"
+        android:textAlignment="textStart"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black"
         android:hint="IOP-2XRL10-6R(3.7kW)-65A"
-        android:textSize="50sp"
+        android:textSize="40sp"
         android:autoSizeTextType="uniform"
         app:layout_constraintStart_toEndOf="@+id/txt_pause_prod_id"
         app:layout_constraintTop_toBottomOf="@+id/txt_pause_order_id" />
-
-    <TextView
-        android:id="@+id/txt_pause_prod_qty"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_pause_prod_name"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
         android:id="@+id/rg_pause_1"
         android:layout_width="753dp"
         android:layout_height="563dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/button_bakcground"
         android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3">
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
 
         <RadioButton
             android:id="@+id/rb_pause_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
+            android:buttonTint="@color/white"
             android:text="  Sample_1             "
-            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:textSize="40sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -86,8 +100,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
+            android:buttonTint="@color/white"
             android:text="  Sample_2             "
-            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:textSize="40sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -96,8 +112,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
+            android:buttonTint="@color/white"
             android:text="  Sample_3             "
-            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:textSize="40sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -106,8 +124,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
+            android:buttonTint="@color/white"
             android:text="  Sample_4             "
-            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:textSize="40sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -115,8 +135,10 @@
             android:id="@+id/rb_pause_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
             android:text="  Sample_5             "
-            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:textSize="40sp"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="126dp" />
 
@@ -124,21 +146,24 @@
 
     <TextView
         android:id="@+id/txt_pause_select_item"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="750dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="8dp"
         android:includeFontPadding="false"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/divider4"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="40sp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bakcground"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <View
         android:id="@+id/divider3"
         android:layout_width="0dp"
         android:layout_height="5dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="1dp"
-        android:background="?android:attr/listDivider"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_pause_prod_id" />
@@ -150,14 +175,14 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="180dp"
-        android:background="?android:attr/listDivider"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_pause_confirm"
-        android:layout_width="700dp"
+        android:layout_width="750dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -167,6 +192,8 @@
         android:text="확   인"
         android:textAlignment="center"
         android:textSize="80sp"
+        android:background="@drawable/button_bakcground"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -179,9 +206,32 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:hint="##"
-        android:textSize="50sp"
+        android:textSize="40sp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="[선택항목]"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="@+id/rg_pause_1"
+        app:layout_constraintTop_toBottomOf="@+id/rg_pause_1" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="[사유선택]"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="@+id/rg_pause_1"
+        app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

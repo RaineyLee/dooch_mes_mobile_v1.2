@@ -19,21 +19,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import android.text.format.DateFormat
+import android.view.Gravity
+import com.example.dooch_wms.databinding.CustomToastBinding
 import java.util.Date
+import java.util.Locale
 import java.util.TimeZone
-import java.util.Timer
-import java.util.TimerTask
 import java.util.concurrent.TimeUnit
-import kotlin.concurrent.timer
 
 
 
 class W_work : AppCompatActivity() {
     private lateinit var workBinding: ActivityWorkBinding
-    private var updateTimer: Timer? = null
     private var batch = 0
-    private var start_time:String? = null
-    private var end_time:String? = null
+    private var isBtnSearchEnabled = true // 버튼 리스너 활성화 여부 제어
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +42,7 @@ class W_work : AppCompatActivity() {
 
         // 초기 화면 설정
         // MyApp 인스턴스 가져오기
-        val app = applicationContext as MyApp
+//        val app = applicationContext as MyApp
 
         // 인텐트에서 값을 가져온다
         // 사원정보에서 가져온다
@@ -52,13 +50,12 @@ class W_work : AppCompatActivity() {
         val empNameFromIntent = intent.getStringExtra("emp_name") ?: ""
 
         // Intent에서 가져온 값이 null일 경우 기본값 설정
-        app.emp_id = if (empIdFromIntent.isNotEmpty()) empIdFromIntent else ""
-        app.emp_name = if (empNameFromIntent.isNotEmpty()) empNameFromIntent else ""
+        val emp_id = if (empIdFromIntent.isNotEmpty()) empIdFromIntent else ""
+        val emp_name = if (empNameFromIntent.isNotEmpty()) empNameFromIntent else ""
 
-        // 전역 변수 가져오기 및 TextView에 표시
         // 사용자 정보 입력
-        workBinding.txtWorkEmpId.text = app.emp_id
-        workBinding.txtWorkEmpName.text = app.emp_name
+        workBinding.txtWorkEmpId.text = emp_id
+        workBinding.txtWorkEmpName.text = emp_name
 
         // 시작시간 설정
         workBinding.txtWorkStartTime.text = ""
@@ -97,6 +94,7 @@ class W_work : AppCompatActivity() {
         // "생산오더 번호" 입력후 조회버튼 클릭시 W_production 화면으로 이동
         // 전환시 "생산오더 번호" 같이 전달
         workBinding.btnWorkSearch2.setOnClickListener {
+
             // 키보드 숨기기
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(workBinding.txtWorkOrderId.windowToken, 0)
@@ -104,8 +102,13 @@ class W_work : AppCompatActivity() {
             // EditText의 커서 없애기 (포커스 제거)
             workBinding.txtWorkOrderId.clearFocus()
 
+            if (workBinding.txtWorkEmpId.text.toString() == ""){
+                showCustomToast("알림", "작업자를 먼저 '조회/선택' 해 주세요.")
+                return@setOnClickListener
+            }
+
             if (workBinding.txtWorkOrderId.text.toString() == ""){
-                Toast.makeText(this@W_work, "생산오더 번호를 입력해 주세요.", Toast.LENGTH_SHORT).show()
+                showCustomToast("알림", "생산오더 번호를 입력해 주세요.")
                 return@setOnClickListener
             }
 
@@ -134,16 +137,21 @@ class W_work : AppCompatActivity() {
                         workBinding.txtWorkOrderId.setText(prodList.order_id.toString())
                         workBinding.txtWorkProdId.text = prodList.item_id.toString()
                         workBinding.txtWorkProdName.text = prodList.item_name.toString()
-                        workBinding.txtWorkProdQty.text = prodList.item_qty.toString()
-                        Log.d("전달값", "Response body: ${response.body()}")
+                        workBinding.txtWorkProdQty.text = prodList.item_qty.toString() + " EA"
+                        workBinding.txtWorkProdStatus.text = prodList.status.toString()
+                        workBinding.txtWorkCTime.text = prodList.c_time.toString()
+                        workBinding.txtWorkProdTime.text = prodList.w_time.toString()
+                        workBinding.txtWorkStartTime.text = prodList.s_time.toString()
 
                     } else if (response.isSuccessful && response.body()?.order_id == null) {
                         workBinding.txtWorkOrderId.setText("")
                         workBinding.txtWorkProdId.text = ""
                         workBinding.txtWorkProdName.text = ""
                         workBinding.txtWorkProdQty.text = ""
-                        Log.d("전달값_null", "Response body: ${response.body()}")
-                        Toast.makeText(this@W_work, "조회된 생산오더가 없습니다. 생산오더를 확인해 주세요.", Toast.LENGTH_LONG).show()
+                        workBinding.txtWorkProdStatus.text = ""
+                        workBinding.txtWorkProdTime.text = ""
+                        workBinding.txtWorkCTime.text = ""
+                        showCustomToast("알림", "조회된 생산오더가 없습니다. 생산오더를 확인해 주세요.")
                     } else {
                         // 오류 처리 코드
                         // 오류 처리: errorBody() 파싱하여 서버에서 전달한 메시지 출력
@@ -157,144 +165,190 @@ class W_work : AppCompatActivity() {
                         }
 
                         Log.d("제품정보 오류", errorJson ?: "No error body")
-                        Toast.makeText(this@W_work, errorMessage, Toast.LENGTH_LONG).show()
+                        showCustomToast("에러", errorMessage.toString())
                     }
                 }
             })
-
-            // intent를 사용하지 않고 직접 조회후 없으면 에러 메시지 띄우기로 변경
-//            val intent = Intent(this, W_production::class.java)
-//            intent.putExtra("order_id", order_id)
-//            intent.putExtra("emp_id", app.emp_id)
-//            intent.putExtra("emp_name", app.emp_name)
-//            startActivityForResult(intent, 88)
 
         }
 
         // 시작버튼 클릭 리스너 설정
         workBinding.btnWorkStart.setOnClickListener {
-            if (workBinding.txtWorkProdId.text.toString() == ""){
-                Toast.makeText(this@W_work, "유효한 생산오더가 아닙니다.", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-            workBinding.btnWorkStart.text = "재시작"
-            workBinding.btnWorkPause.isEnabled = true
-
-            app.emp_id = workBinding.txtWorkEmpId.text.toString()
-            app.emp_name = workBinding.txtWorkEmpName.text.toString()
-            app.order_id = workBinding.txtWorkOrderId.text.toString()
-            app.prod_id = workBinding.txtWorkProdId.text.toString()
-            app.prod_name = workBinding.txtWorkProdName.text.toString()
-
-            if(start_time.isNullOrEmpty()) {
-                start_time = System.currentTimeMillis().toString() // start_time에 현재 시간 저장
-                workBinding.txtWorkStartTime.text = start_time // TextView에도 설정
-            }
-
-            // 20241106 화면구성 변경으로 사용하지 않음.
-//            if(stop_e_time.isNullOrEmpty() && batch > 0) {
-//                stop_e_time = System.currentTimeMillis().toString() // start_time에 현재 시간 저장
-//                workBinding.txtWorkStopETime.text = stop_e_time // TextView에도 설정
-//            }
-            batch++
-            workBinding.txtWorkBatchId.text = batch.toString()
-
             // 사용자에게 보여주는 현재시간(millis는 시간 계산에 사용)
             // 현재 시간 가져오기
             val currentTime = Date()
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd:HH:mm:ss")
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
-            // 날짜와 시간을 기본 형식으로 변환 후 textview_new에 설정
-            workBinding.txtWorkCurTime.text = dateFormat.format(currentTime)
+            if (workBinding.txtWorkProdId.text.toString() == ""){
+                showCustomToast("알림", "유요한 생산오더가 아닙니다. 생산오더 번호를 확인해 주세요.")
+                return@setOnClickListener
+            }
+
+            if(workBinding.txtWorkProdStatus.text.toString() == "릴리스됨" ){
+                workBinding.txtWorkCTime.text = dateFormat.format(currentTime)
+                workBinding.txtWorkStartTime.text = dateFormat.format(currentTime)
+
+                workBinding.txtWorkProdStatus.text = "시작됨"
+                workBinding.btnWorkStart.isEnabled = false
+                workBinding.btnWorkPause.isEnabled = true
+            }
+            else if(workBinding.txtWorkProdStatus.text.toString() == "시작됨"){
+                workBinding.btnWorkStart.isEnabled = false
+                workBinding.btnWorkPause.isEnabled = true
+                workBinding.btnWorkEnd.isEnabled = true
+
+                showCustomToast("알림", "생산오더가 진행 상태입니다.")
+                return@setOnClickListener
+            }
+            else if(workBinding.txtWorkProdStatus.text.toString() == "중지됨"){
+                workBinding.txtWorkProdStatus.text = "시작됨"
+                workBinding.txtWorkStartTime.text = dateFormat.format(currentTime)
+
+                workBinding.btnWorkStart.isEnabled = false
+                workBinding.btnWorkPause.isEnabled = true
+                workBinding.btnWorkEnd.isEnabled = true
+            }
+            else if(workBinding.txtWorkProdStatus.text.toString() == "종료됨"){
+                workBinding.btnWorkStart.isEnabled = false
+                workBinding.btnWorkPause.isEnabled = false
+                workBinding.btnWorkEnd.isEnabled = false
+
+                // 조회된 생산오더 텍스트뷰 초기화
+                workBinding.txtWorkProdId.text = ""
+                workBinding.txtWorkProdStatus.text = ""
+                workBinding.txtWorkOrderId.setText("")
+                workBinding.txtWorkProdName.text = ""
+                workBinding.txtWorkProdQty.text = ""
+
+                showCustomToast("알림", "종료된 작업입니다.")
+                return@setOnClickListener
+            }
+            else{
+                workBinding.txtWorkStartTime.text = dateFormat.format(currentTime)
+            }
+
+            batch++
+            workBinding.txtWorkBatchId.text = batch.toString()
+
+            // 시작시 생산오더 시작 정보 기입을 위한 변수 설정
+            val order_id = workBinding.txtWorkOrderId.text.toString()
+            val emp_id = workBinding.txtWorkEmpId.text.toString()
+            val emp_name = workBinding.txtWorkEmpName.text.toString()
+            val status = workBinding.txtWorkProdStatus.text.toString()
+            val s_time = workBinding.txtWorkStartTime.text.toString()
+            val c_time = workBinding.txtWorkCTime.text.toString()
 
             // 시작버튼 클릭시 중지,작업종료 버튼 활성화
             workBinding.btnWorkPause.isEnabled = true
             workBinding.btnWorkEnd.isEnabled = true
 
-            if (TimerManager.isTimerRunning()) {
-//                stopTimerAndUpdateUI()
-                return@setOnClickListener
-            } else {
-                startTimerAndUpdateUI()
-            }
-
-            val order_id = workBinding.txtWorkOrderId.text.toString()
-            val emp_id = workBinding.txtWorkEmpId.text.toString()
-            val emp_name = workBinding.txtWorkEmpName.text.toString()
 
             // 생산오더에 emp_id, emp_name을 입력하고, status를 '릴리스됨'에서 '시작됨'으로 변경
-            editOrderStart(order_id, emp_id, emp_name, "시작됨")
+            editOrderStart(order_id, emp_id, emp_name, status, s_time, c_time)
         }
 
         workBinding.btnWorkPause.setOnClickListener {
+            // end_time 설정
+            // 현재 시간 가져오기
+            val currentTime = Date()
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
-            // 중지 시간 기록(업데이트 값)
-            // 20241106 화면구성 변경으로 사용하지 않음.
-//            workBinding.txtWorkStopSTime.text = System.currentTimeMillis().toString()
+            // 날짜와 시간을 기본 형식으로 변환 후 textview_new에 설정
+            workBinding.txtWorkEndTime.text = dateFormat.format(currentTime)
+
+            // 중지 버튼 클릭시 작업시간 계산을 위한 변수 추출
+            val start_time = workBinding.txtWorkStartTime.text.toString()
+            val end_time = workBinding.txtWorkEndTime.text.toString()
+            var working_time = workBinding.txtWorkProdTime.text.toString().toLong()
+
+            // 누적 작업시간을 불러 와서 중지 버튼을 눌렀을 때 실제 작업시간을 계산
+            val (dif_sec, dif_min) = differenceTime(start_time, end_time)
+            working_time = working_time + dif_sec
+            workBinding.txtWorkProdTime.text = working_time.toString()
+
+            // 생산오더 상태값 변경
+            workBinding.txtWorkProdStatus.text = "중지됨"
 
             // 화면 복귀시 버튼 비활성화
             workBinding.btnWorkPause.isEnabled = false
             workBinding.btnWorkEnd.isEnabled = false
+            workBinding.btnWorkStart.text = "재시작"
+            workBinding.btnWorkStart.isEnabled = true
 
-            if (TimerManager.isTimerRunning()) {
-                stopTimerAndUpdateUI()
-            } else {
-                // 타이머가 중지상태 일경우 버튼을 눌러도 이벤트가 발생하지 않는다.
-                return@setOnClickListener
-            }
+
             // 중지 화면으로 보낼 변수값 설정
             val order_id: String = workBinding.txtWorkOrderId.text.toString()
             val prod_id: String = workBinding.txtWorkProdId.text.toString()
             val prod_name: String = workBinding.txtWorkProdName.text.toString()
             val batch_id: String = workBinding.txtWorkBatchId.text.toString()
+            val status: String = workBinding.txtWorkProdStatus.text.toString()
 
-            // 20241106 화면변경으로 사용하지 않음
-//            val currentTime = TimerManager.getTime()
+            // 작업시간을 업데이트 할 DB 연결 함수
+            editOrderPause(order_id, working_time.toString(), status)
 
-//            // 중지 화면으로 값 전달
+            // 중지 화면으로 값 전달
             val intent = Intent(this, W_pause::class.java)
             intent.putExtra("order_id", order_id) // 생산오더 id 전달
             intent.putExtra("prod_id", prod_id) // 제품 id 전달
             intent.putExtra("prod_name", prod_name) // 제품명 전달
             intent.putExtra("batch_id", batch_id) // 배차 id 전달
             startActivity(intent)
-//            // start_time이 null이 아닌 경우에만 전달
-//            if (!start_time.isNullOrEmpty()) {
-//                intent.putExtra("start_time", start_time)
-//            }
-            startActivityForResult(intent, 1)
+
         }
 
         // "작업 종료" 버튼 클릭 리스너
         workBinding.btnWorkEnd.setOnClickListener {
-            if(end_time.isNullOrEmpty()) {
-                end_time = System.currentTimeMillis().toString() // 종료시간 측정
-                workBinding.txtWorkEndTime.text = end_time // TextView에 종료시간 입력
-            }
+            // 작업 상태값 변경(시작됨 --> 종료됨)
+            workBinding.txtWorkProdStatus.text = "종료됨"
 
-            val start_time = workBinding.txtWorkStartTime.text.toString().toLong()
-            val end_time = workBinding.txtWorkEndTime.text.toString().toLong()
-            endWorkAndDisplayTimes(start_time, end_time)
+            // 현재 시간 가져오기
+            val currentTime = Date()
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
-            val working_time = workBinding.txtWorkWorkTime.text.toString()
-            val total_time = workBinding.txtWorkTotalTime.text.toString()
-            val pause_time = calculateTimeDifference(total_time, working_time)
+            // 날짜와 시간을 기본 형식으로 변환 후 textview_new에 설정
+            workBinding.txtWorkEndTime.text = dateFormat.format(currentTime)
+
+            // 텍스트뷰에 입력된 날짜를 가져와서 두 시간 차이를 초로 계산
+            val start_time = workBinding.txtWorkStartTime.text.toString()
+            var end_time = workBinding.txtWorkEndTime.text.toString()
+
+            // 사용자 함수를 통해서 차이 시간을 초,분 으로 받기
+            val (dif_sec, dif_min) = differenceTime(start_time, end_time)
+
+            // 종료 화면으로 보낼 변수값 확인
+            val order_id = workBinding.txtWorkOrderId.text.toString()
+            val prod_id = workBinding.txtWorkProdId.text.toString()
+            val prod_name = workBinding.txtWorkProdName.text.toString()
+            val c_time = workBinding.txtWorkCTime.text.toString()
+            val w_time = workBinding.txtWorkProdTime.text.toString().toLong()//저장된 작업시간 초기값 '0'
+            val status = workBinding.txtWorkProdStatus.text.toString()
+
+            // 작업시간 계산후 누적시킴
+            val working_time = (w_time + dif_sec)
+            workBinding.txtWorkProdTime.text = working_time.toString()
+
+            // 중지시간계산
+            val (t_dif_sec, t_dif_min) = differenceTime(c_time, end_time)
+            val pause_time = (t_dif_sec - working_time).toString()
+
+
+            // DB 입력
+            editOrderEnd(order_id, end_time, working_time.toString(), pause_time, status)
 
             val intent = Intent(this, W_result::class.java)
-            intent.putExtra("emp_id", app.emp_id)
-            intent.putExtra("emp_name", app.emp_name)
-            intent.putExtra("order_id", app.order_id)
-            intent.putExtra("prod_id", app.prod_id)
-            intent.putExtra("prod_name", app.prod_name)
-            intent.putExtra("working_time", working_time) // 생산오더 id 전달
-            intent.putExtra("total_time", total_time) // 제품 id 전달
-            intent.putExtra("pause_time", pause_time) // 중지시간 전달
+            intent.putExtra("emp_id", emp_id)
+            intent.putExtra("emp_name", emp_name)
+            intent.putExtra("order_id", order_id)
+            intent.putExtra("prod_id", prod_id)
+            intent.putExtra("prod_name", prod_name)
+            intent.putExtra("c_time", c_time)
+            intent.putExtra("end_time", end_time)
+            intent.putExtra("working_time", working_time.toString()) // 생산오더 id 전달
+            intent.putExtra("pause_time", pause_time)
             startActivity(intent)
-
-            TimerManager.resetTimer()
-            // 필요하다면 UI를 업데이트하여 타이머가 초기화된 것을 표시
-            workBinding.txtWorkWorkTime.text = "00:00"
 
         }
 
@@ -308,58 +362,68 @@ class W_work : AppCompatActivity() {
         }
     }
 
-    private fun startTimerAndUpdateUI() {
-        TimerManager.startTimer { _, _ -> }
+    private fun showCustomToast(title: String, message: String) {
+        // 커스텀 레이아웃을 ViewBinding으로 가져오기
+        val toastBinding = CustomToastBinding.inflate(layoutInflater)
 
-        updateTimer?.cancel()
-        updateTimer = Timer()
-        updateTimer?.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                runOnUiThread {
-                    updateTimerDisplay()
-                }
-            }
-        }, 0, 1000)
+        // TextView에 메시지 설정
+        toastBinding.toastTitle.text = title
+        toastBinding.toastMessage.text = message
+
+        // Toast 생성 및 설정
+        val toast = Toast(applicationContext)
+        toast.duration = Toast.LENGTH_LONG
+        toast.view = toastBinding.root
+
+        // Toast 위치를 화면 중앙으로 설정
+        toast.setGravity(Gravity.CENTER, 0, 0)
+
+        toast.show()
     }
 
-    private fun stopTimerAndUpdateUI() {
-        TimerManager.stopTimer()
-        updateTimer?.cancel()
-        updateTimer = null
+    // AlertDialog 표시 함수
+    private fun showAlert(title: String, message: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(message)
 
-//        workBinding.btnWorkStart.text = "시작" // 버튼 텍스트 변경
-        updateTimerDisplay() // 마지막으로 표시된 시간 유지
+        // '확인' 버튼 처리
+        builder.setPositiveButton("확인") { dialog, _ ->
+            isBtnSearchEnabled = false // 버튼 비활성화
+            dialog.dismiss()
+        }
+
+        // '취소' 버튼 처리
+        builder.setNegativeButton("취소") { dialog, _ ->
+            isBtnSearchEnabled = false // 버튼 유지
+            dialog.dismiss()
+        }
+
+        // 다이얼로그 표시
+        val dialog = builder.create()
+        dialog.show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        updateTimerDisplay() // 화면이 다시 보일 때 타이머 시간 업데이트
-    }
+    private fun differenceTime(startDateString:String, endDateString:String): Pair<Long, Long> {
 
-    private fun updateTimerDisplay() {
-        val time = TimerManager.getTime()
-        val min = time / 60
-        val sec = time % 60
-        workBinding.txtWorkWorkTime.text = String.format("%02d:%02d", min, sec)
-    }
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
-    private fun updateButtonText() {
-        workBinding.btnWorkStart.text = if (TimerManager.isTimerRunning()) "재시작" else "시작"
-    }
+        val startDate = dateFormat.parse(startDateString)
+        val endDate = dateFormat.parse(endDateString)
+        // 두 날짜의 차이를 밀리초 단위로 구함
+        val differenceInMillis = endDate.time - startDate.time
 
-    override fun onDestroy() {
-        super.onDestroy()
-        updateTimer?.cancel()
-        updateTimer = null
+        // 밀리초 차이를 다른 시간 단위로 변환
+        val diffInSeconds = TimeUnit.MILLISECONDS.toSeconds(differenceInMillis)
+        val diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(differenceInMillis)
+        val diffInHours = TimeUnit.MILLISECONDS.toHours(differenceInMillis)
+        val diffInDays = TimeUnit.MILLISECONDS.toDays(differenceInMillis)
+
+        return Pair(diffInSeconds, diffInMinutes)
     }
 
     private fun endWorkAndDisplayTimes(start_time:Long, end_time:Long) {
-        // 타이머 중지
-        TimerManager.stopTimer()
-
-        // 전체 작업 시간 및 중지 시간 가져오기
-        val totalWorkTime = TimerManager.getTime() // 전체 작업 시간
-        val totalPauseTime = TimerManager.getTotalPauseTime() // 중지 시간 합산
 
         val time_gap = end_time - start_time
         val dateFormat = SimpleDateFormat("mm:ss")
@@ -371,18 +435,9 @@ class W_work : AppCompatActivity() {
 //        val pauseMin = totalPauseTime / 60
 //        val pauseSec = totalPauseTime % 60
 
-        // 텍스트뷰에 시간 표시
-        workBinding.txtWorkTotalTime.text = total_time.toString()
-//        workBinding.txtWorkPauseTime.text = String.format("중지 시간: %02d:%02d", pauseMin, pauseSec)
+
     }
 
-    // Bundle에 화면이 파괴 되어도 되살아 나야 하는 값을 저장
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // 시작 시간을 숫자 형식으로 저장
-        val startTime = workBinding.txtWorkStartTime.text.toString()
-        outState.putString("start_time", startTime)
-    }
 
     private fun calculateTimeDifference(timeA: String, timeB: String): String {
         // Define the time format
@@ -403,7 +458,38 @@ class W_work : AppCompatActivity() {
         return String.format("%02d:%02d", minutes, seconds)
     }
 
-    private fun editOrderStart(order_id: String, emp_id: String, emp_name: String, status: String){
+    private fun editOrderStart(order_id: String, emp_id: String, emp_name: String, status: String, s_time: String, c_time: String){
+
+        // 생산오더에 시작시간과 status를 변경
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.1.197:80/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val prodservice: S_production = retrofit.create(S_production::class.java)
+
+        prodservice.startProdInfo(order_id, emp_id, emp_name, status, s_time, c_time).enqueue(object : Callback<D_msg> { //받는 값이 List 형식이면 Callback<List<D_production>>
+            override fun onFailure(call: Call<D_msg>, t: Throwable) {
+                val dialog = AlertDialog.Builder(this@W_work)
+                dialog.setTitle("에러")
+                dialog.setMessage(t.message)
+                dialog.show()
+            }
+            override fun onResponse(call: Call<D_msg>, response: Response<D_msg>) {  //받는 값이 List 형식이면 Callback<List<D_production>>
+                val success = response.body()!!
+                val dialog = AlertDialog.Builder(this@W_work)
+                if (response.isSuccessful) {
+                    dialog.setTitle(success.code)
+                    dialog.setMessage((success.msg))
+                } else {
+                    dialog.setTitle(success.code)
+                    dialog.setMessage((success.msg))
+                }
+            }
+        })
+    }
+
+    private fun editOrderEnd(order_id: String, end_time: String, working_time: String, pause_time: String, status: String){
 
         // 생산오더에 emp_id, emp_name을 입력하고, status를 '릴리스됨'에서 '시작됨'으로 변경
         val retrofit = Retrofit.Builder()
@@ -413,7 +499,38 @@ class W_work : AppCompatActivity() {
 
         val prodservice: S_production = retrofit.create(S_production::class.java)
 
-        prodservice.updateProdInfo(order_id, emp_id, emp_name, status).enqueue(object : Callback<D_msg> { //받는 값이 List 형식이면 Callback<List<D_production>>
+        prodservice.endProdInfo(order_id, end_time, working_time, pause_time, status).enqueue(object : Callback<D_msg> { //받는 값이 List 형식이면 Callback<List<D_production>>
+            override fun onFailure(call: Call<D_msg>, t: Throwable) {
+                val dialog = AlertDialog.Builder(this@W_work)
+                dialog.setTitle("에러")
+                dialog.setMessage(t.message)
+                dialog.show()
+            }
+            override fun onResponse(call: Call<D_msg>, response: Response<D_msg>) {  //받는 값이 List 형식이면 Callback<List<D_production>>
+                val success = response.body()!!
+                val dialog = AlertDialog.Builder(this@W_work)
+                if (response.isSuccessful) {
+                    dialog.setTitle(success.code)
+                    dialog.setMessage((success.msg))
+                } else {
+                    dialog.setTitle(success.code)
+                    dialog.setMessage((success.msg))
+                }
+            }
+        })
+    }
+
+    private fun editOrderPause(order_id: String, working_time: String, status: String){
+
+        // 생산오더에 emp_id, emp_name을 입력하고, status를 '릴리스됨'에서 '중지됨'으로 변경
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.1.197:80/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val prodservice: S_production = retrofit.create(S_production::class.java)
+
+        prodservice.pauseProdInfo(order_id, working_time, status).enqueue(object : Callback<D_msg> { //받는 값이 List 형식이면 Callback<List<D_production>>
             override fun onFailure(call: Call<D_msg>, t: Throwable) {
                 val dialog = AlertDialog.Builder(this@W_work)
                 dialog.setTitle("에러")
@@ -435,58 +552,3 @@ class W_work : AppCompatActivity() {
     }
 }
 
-object TimerManager {
-    private var time = 0
-    private var pauseTime = 0 // 중지 시간을 기록할 변수
-    private var totalPauseTime = 0 // 중지 시간의 합
-    private var isRunning = false
-    private var timerTask: Timer? = null
-    private var pauseStart: Long = 0 // 중지 시작 시간 기록
-
-    fun startTimer(updateUI: (Int, Int) -> Unit) {
-        if (!isRunning) {
-            isRunning = true
-            timerTask = timer(period = 1000) {
-                time++
-                val min = time / 60
-                val sec = time % 60
-                updateUI(min, sec)
-            }
-        }
-    }
-
-    fun stopTimer() {
-        timerTask?.cancel()
-        timerTask = null
-        isRunning = false
-        pauseStart = System.currentTimeMillis() // 중지 시간 시작 기록
-    }
-
-    fun resumeTimer(updateUI: (Int, Int) -> Unit) {
-        if (!isRunning) {
-            isRunning = true
-            val pauseEnd = System.currentTimeMillis()
-            pauseTime = ((pauseEnd - pauseStart) / 1000).toInt()
-            totalPauseTime += pauseTime // 중지 시간 합산
-            timerTask = timer(period = 1000) {
-                time++
-                val min = time / 60
-                val sec = time % 60
-                updateUI(min, sec)
-            }
-        }
-    }
-
-    fun getTotalPauseTime(): Int {
-        return totalPauseTime
-    }
-
-    fun resetTimer() {
-        stopTimer()
-        time = 0
-        totalPauseTime = 0
-    }
-
-    fun getTime(): Int = time
-    fun isTimerRunning(): Boolean = isRunning
-}

@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background">
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="사번"
+        android:layout_marginTop="8dp"
+        android:text="[사번]"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -21,8 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="이름"
+        android:layout_marginTop="8dp"
+        android:text="[이름]"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_emp_emp_id" />
@@ -32,8 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text="부서명"
+        android:text="[부서명]"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/txt_emp_dept_name"
         app:layout_constraintEnd_toStartOf="@+id/txt_emp_dept_name" />
 
@@ -44,6 +48,7 @@
         android:layout_marginStart="24dp"
         android:hint="00000"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView10"
         app:layout_constraintStart_toEndOf="@+id/textView10" />
 
@@ -54,6 +59,7 @@
         android:layout_marginStart="24dp"
         android:hint="홍길동"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/textView11"
         app:layout_constraintStart_toEndOf="@+id/textView11" />
 
@@ -64,6 +70,7 @@
         android:layout_marginEnd="24dp"
         android:hint="생산1팀"
         android:textSize="30sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/txt_emp_emp_name"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -74,6 +81,8 @@
         android:layout_marginBottom="24dp"
         android:text="확 인"
         android:textSize="50sp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_bakcground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -82,8 +91,8 @@
         android:id="@+id/list_employee"
         android:layout_width="750dp"
         android:layout_height="800dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +124,7 @@
         android:layout_marginTop="16dp"
         android:text="사용자 정보"
         android:textSize="50dp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,9 +156,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="[선택정보]"
-        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
