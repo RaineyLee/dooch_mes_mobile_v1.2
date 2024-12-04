@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Disabled 상태 -->
-    <item android:state_enabled="false" android:color="#990033" />
+    <!-- 버튼 기능이 false 상태일 때, 텍스트의 색깔 -->
+    <item android:state_enabled="false" android:color="#B22222" />
 
-    <!-- Pressed 상태 -->
+    <!-- 버튼 기능이 true 상태일 때, 텍스트의 색깔 -->
     <item android:state_enabled="true" android:color="@color/white" />
 
-    <!-- 기본 상태 -->
+    <!-- 기본 색깔 -->
     <item android:color="@color/white" />
 </selector>

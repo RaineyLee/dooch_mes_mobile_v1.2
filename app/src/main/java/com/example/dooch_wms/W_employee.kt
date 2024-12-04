@@ -3,6 +3,7 @@ package com.example.dooch_wms
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -42,6 +43,10 @@ class W_employee : ComponentActivity() {
         employeeBinding.test1.setText(value_1)
         employeeBinding.test2.setText(value_2)
 
+        // db 조회를 위해 전달 받은 값을 저장하는 장소를 보이지 않게 하고 위치/공간을 차지 하지 않게 함.
+        employeeBinding.test1.visibility = View.GONE
+        employeeBinding.test2.visibility = View.GONE
+
         get_data(value_1, value_2)
 
         // 리스트뷰의 특정 라인을 클릭하면 발생 하는 이벤트
@@ -59,8 +64,7 @@ class W_employee : ComponentActivity() {
         employeeBinding.btnEmpConfirm.setOnClickListener        {
             val emp_id = employeeBinding.txtEmpEmpId.text.toString()
             val emp_name = employeeBinding.txtEmpEmpName.text.toString()
-
-            Log.d("테스트", emp_id)
+            val dept_name = employeeBinding.txtEmpDeptName.text.toString()
 
 //            // 인텐트를 생성하고 값을 전달 함
 //            val returnIntent = Intent()
@@ -73,6 +77,7 @@ class W_employee : ComponentActivity() {
             val intent = Intent(this, W_work::class.java)
             intent.putExtra("emp_id", emp_id)
             intent.putExtra("emp_name", emp_name)
+            intent.putExtra("dept_name", dept_name)
 //            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
         }

@@ -11,14 +11,14 @@ interface S_production {
     fun requestProdInfo(
         @Field("order_id") order_id: String?
 //        @Field("code") code:String
-    ) : Call<D_production> // 받아서 Login 클래스로 전달
+    ) : Call<D_production>
 
     @FormUrlEncoded
     @POST("start_production_info.php") // 웹서버의 메인 다음에 나오는 주소
     fun startProdInfo(
         @Field("order_id") order_id: String?,
-        @Field("emp_id") emp_id: String?,
-        @Field("emp_name") emp_name: String?,
+        @Field("dept_id") dept_id: String?,
+        @Field("dept_name") dept_name: String?,
         @Field("status") status: String?,
         @Field("s_time") s_time: String?,
         @Field("c_time") c_time: String?

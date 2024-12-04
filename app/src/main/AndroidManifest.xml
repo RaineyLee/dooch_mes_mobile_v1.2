@@ -40,12 +40,12 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".W_employee"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".W_employee"-->
+<!--            android:exported="true"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/Theme.AppCompat">-->
+<!--        </activity>-->
 
         <activity
             android:name=".W_work"
@@ -70,6 +70,13 @@
 
         <activity
             android:name=".W_result"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
+
+        <activity
+            android:name=".W_department"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">

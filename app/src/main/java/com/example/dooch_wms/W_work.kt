@@ -18,8 +18,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import android.text.format.DateFormat
 import android.view.Gravity
+import android.view.View
 import com.example.dooch_wms.databinding.CustomToastBinding
 import java.util.Date
 import java.util.Locale
@@ -40,22 +40,35 @@ class W_work : AppCompatActivity() {
         // binding.root 뷰를 화면에 표시하도록 설정
         setContentView(workBinding.root)
 
-        // 초기 화면 설정
-        // MyApp 인스턴스 가져오기
-//        val app = applicationContext as MyApp
+        // 개발용 view 비활성화 visibility = View.GONE --> 안보임&공간 차지하지 않음, 
+        // visibility = View.INVISIBLE 안보임&공간 차지함
+        workBinding.txtWorkCTime.visibility = View.GONE
+        workBinding.textView7.visibility = View.GONE
+        workBinding.textView8.visibility = View.GONE
+        workBinding.txtWorkStartTime.visibility = View.GONE
+        workBinding.txtWorkEndTime.visibility = View.GONE
+        workBinding.txtWorkProdTime.visibility = View.GONE
+        workBinding.txtWorkDeptName2.visibility = View.GONE
+        workBinding.textView28.visibility = View.GONE
+        workBinding.txtWorkBatchId.visibility = View.GONE
 
         // 인텐트에서 값을 가져온다
         // 사원정보에서 가져온다
-        val empIdFromIntent = intent.getStringExtra("emp_id") ?: ""
-        val empNameFromIntent = intent.getStringExtra("emp_name") ?: ""
+//        val empIdFromIntent = intent.getStringExtra("emp_id") ?: ""
+//        val empNameFromIntent = intent.getStringExtra("emp_name") ?: ""
+//        val deptNameFromIntent = intent.getStringExtra("dept_name") ?: ""
+        // 부서 정보를 가져온다
+        val deptIdFromIntent = intent.getStringExtra("dept_id") ?: ""
+        val deptNameFromIntent = intent.getStringExtra("dept_name") ?: ""
 
         // Intent에서 가져온 값이 null일 경우 기본값 설정
-        val emp_id = if (empIdFromIntent.isNotEmpty()) empIdFromIntent else ""
-        val emp_name = if (empNameFromIntent.isNotEmpty()) empNameFromIntent else ""
+        val dept_id = if (deptIdFromIntent.isNotEmpty()) deptIdFromIntent else ""
+        val dept_name = if (deptNameFromIntent.isNotEmpty()) deptNameFromIntent else ""
+//        val dept_name = if (deptNameFromIntent.isNotEmpty()) deptNameFromIntent else ""
 
         // 사용자 정보 입력
-        workBinding.txtWorkEmpId.text = emp_id
-        workBinding.txtWorkEmpName.text = emp_name
+        workBinding.txtWorkDeptId.text = dept_id
+        workBinding.txtWorkDeptName.text = dept_name
 
         // 시작시간 설정
         workBinding.txtWorkStartTime.text = ""
@@ -64,9 +77,9 @@ class W_work : AppCompatActivity() {
         workBinding.btnWorkStart.isEnabled = false
         workBinding.btnWorkPause.isEnabled = false
         workBinding.btnWorkEnd.isEnabled = false
-        workBinding.txtWorkBatchId.text = batch.toString()
+        workBinding.txtWorkBatchId.text = String.format(Locale.getDefault(), "%d", batch)
 
-        if (workBinding.txtWorkEmpId.text.toString() != "") {
+        if (workBinding.txtWorkDeptId.text.toString() != "") {
             workBinding.btnWorkSearch2.isEnabled = true
         }
         // 생산오더 아이디 확인
@@ -82,13 +95,23 @@ class W_work : AppCompatActivity() {
         // 전환시 "사원번호", "사원명"을 같이 전달
         workBinding.btnWorkSearch1.setOnClickListener {
 
-            val emp_id = workBinding.txtWorkEmpId.text.toString()
-            val emp_name = workBinding.txtWorkEmpName.text.toString()
+            // 사번/사원명 입력시 검색 조회 조건으로 전달
+//            val emp_id = workBinding.txtWorkEmpId.text.toString()
+//            val emp_name = workBinding.txtWorkEmpName.text.toString()
 
-            val intent = Intent(this, W_employee::class.java)
-            intent.putExtra("emp_id", emp_id)
-            intent.putExtra("emp_name", emp_name)
-            startActivityForResult(intent, 99)
+            // 사원정보를 기준으로 검색할 때
+//            val intent = Intent(this, W_employee::class.java)
+//            intent.putExtra("emp_id", emp_id)
+//            intent.putExtra("emp_name", emp_name)
+////            startActivityForResult(intent, 99) // 처음에 만든 코드
+//            startActivity(intent) // 이렇게 수정해도 문제가 발생하지 않는것 같다.(20241212)
+
+            // 부서 정보를 가져 올 때(사용 하려고 하는 부서 정보만 가져온다)
+            val intent = Intent(this, W_department::class.java)
+//            intent.putExtra("emp_id", emp_id)
+//            intent.putExtra("emp_name", emp_name)
+////            startActivityForResult(intent, 99) // 처음에 만든 코드
+            startActivity(intent) // 이렇게 수정해도 문제가 발생하지 않는것 같다.(20241212)
         }
 
         // "생산오더 번호" 입력후 조회버튼 클릭시 W_production 화면으로 이동
@@ -102,7 +125,7 @@ class W_work : AppCompatActivity() {
             // EditText의 커서 없애기 (포커스 제거)
             workBinding.txtWorkOrderId.clearFocus()
 
-            if (workBinding.txtWorkEmpId.text.toString() == ""){
+            if (workBinding.txtWorkDeptId.text.toString() == ""){
                 showCustomToast("알림", "작업자를 먼저 '조회/선택' 해 주세요.")
                 return@setOnClickListener
             }
@@ -160,7 +183,6 @@ class W_work : AppCompatActivity() {
                             JSONObject(errorJson).getString("message")
                             Log.d("전달값_try", "Response body: ${response.body()}")
                         } catch (e: Exception) {
-                            "유효한 생산오더가 아닙니다. 생산오더를 다시 확인해 주세요."
                             Log.d("전달값_catch", "Response body: ${response.body()}")
                         }
 
@@ -181,7 +203,7 @@ class W_work : AppCompatActivity() {
             dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
             if (workBinding.txtWorkProdId.text.toString() == ""){
-                showCustomToast("알림", "유요한 생산오더가 아닙니다. 생산오더 번호를 확인해 주세요.")
+                showCustomToast("알림", "유효한 생산오더가 아닙니다. 생산오더 번호를 확인해 주세요.")
                 return@setOnClickListener
             }
 
@@ -233,8 +255,8 @@ class W_work : AppCompatActivity() {
 
             // 시작시 생산오더 시작 정보 기입을 위한 변수 설정
             val order_id = workBinding.txtWorkOrderId.text.toString()
-            val emp_id = workBinding.txtWorkEmpId.text.toString()
-            val emp_name = workBinding.txtWorkEmpName.text.toString()
+            val dept_id = workBinding.txtWorkDeptId.text.toString()
+            val dept_name = workBinding.txtWorkDeptName.text.toString()
             val status = workBinding.txtWorkProdStatus.text.toString()
             val s_time = workBinding.txtWorkStartTime.text.toString()
             val c_time = workBinding.txtWorkCTime.text.toString()
@@ -245,7 +267,7 @@ class W_work : AppCompatActivity() {
 
 
             // 생산오더에 emp_id, emp_name을 입력하고, status를 '릴리스됨'에서 '시작됨'으로 변경
-            editOrderStart(order_id, emp_id, emp_name, status, s_time, c_time)
+            editOrderStart(order_id, dept_id, dept_name, status, s_time, c_time)
         }
 
         workBinding.btnWorkPause.setOnClickListener {
@@ -261,7 +283,7 @@ class W_work : AppCompatActivity() {
             // 중지 버튼 클릭시 작업시간 계산을 위한 변수 추출
             val start_time = workBinding.txtWorkStartTime.text.toString()
             val end_time = workBinding.txtWorkEndTime.text.toString()
-            var working_time = workBinding.txtWorkProdTime.text.toString().toLong()
+            var working_time = workBinding.txtWorkProdTime.text?.toString()?.toLongOrNull() ?: 0L
 
             // 누적 작업시간을 불러 와서 중지 버튼을 눌렀을 때 실제 작업시간을 계산
             val (dif_sec, dif_min) = differenceTime(start_time, end_time)
@@ -323,7 +345,7 @@ class W_work : AppCompatActivity() {
             val prod_id = workBinding.txtWorkProdId.text.toString()
             val prod_name = workBinding.txtWorkProdName.text.toString()
             val c_time = workBinding.txtWorkCTime.text.toString()
-            val w_time = workBinding.txtWorkProdTime.text.toString().toLong()//저장된 작업시간 초기값 '0'
+            val w_time = workBinding.txtWorkProdTime.text?.toString()?.toLongOrNull() ?: 0L //저장된 작업시간 초기값 '0'
             val status = workBinding.txtWorkProdStatus.text.toString()
 
             // 작업시간 계산후 누적시킴
@@ -339,8 +361,8 @@ class W_work : AppCompatActivity() {
             editOrderEnd(order_id, end_time, working_time.toString(), pause_time, status)
 
             val intent = Intent(this, W_result::class.java)
-            intent.putExtra("emp_id", emp_id)
-            intent.putExtra("emp_name", emp_name)
+            intent.putExtra("dept_id", dept_id)
+            intent.putExtra("dept_name", dept_name)
             intent.putExtra("order_id", order_id)
             intent.putExtra("prod_id", prod_id)
             intent.putExtra("prod_name", prod_name)
@@ -411,6 +433,7 @@ class W_work : AppCompatActivity() {
 
         val startDate = dateFormat.parse(startDateString)
         val endDate = dateFormat.parse(endDateString)
+
         // 두 날짜의 차이를 밀리초 단위로 구함
         val differenceInMillis = endDate.time - startDate.time
 
@@ -458,7 +481,7 @@ class W_work : AppCompatActivity() {
         return String.format("%02d:%02d", minutes, seconds)
     }
 
-    private fun editOrderStart(order_id: String, emp_id: String, emp_name: String, status: String, s_time: String, c_time: String){
+    private fun editOrderStart(order_id: String, dept_id: String, dept_name: String, status: String, s_time: String, c_time: String){
 
         // 생산오더에 시작시간과 status를 변경
         val retrofit = Retrofit.Builder()
@@ -468,7 +491,7 @@ class W_work : AppCompatActivity() {
 
         val prodservice: S_production = retrofit.create(S_production::class.java)
 
-        prodservice.startProdInfo(order_id, emp_id, emp_name, status, s_time, c_time).enqueue(object : Callback<D_msg> { //받는 값이 List 형식이면 Callback<List<D_production>>
+        prodservice.startProdInfo(order_id, dept_id, dept_name, status, s_time, c_time).enqueue(object : Callback<D_msg> { //받는 값이 List 형식이면 Callback<List<D_production>>
             override fun onFailure(call: Call<D_msg>, t: Throwable) {
                 val dialog = AlertDialog.Builder(this@W_work)
                 dialog.setTitle("에러")

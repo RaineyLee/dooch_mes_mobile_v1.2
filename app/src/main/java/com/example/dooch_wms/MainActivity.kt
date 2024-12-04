@@ -3,12 +3,7 @@ package com.example.dooch_wms
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.GravityCompat
 import com.example.dooch_wms.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView

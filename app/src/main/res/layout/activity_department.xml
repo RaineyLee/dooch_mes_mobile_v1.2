@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background">
+
+
+    <LinearLayout
+        android:layout_width="700sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="작업파트 선택"
+            android:textColor="@color/white"
+            android:background="@drawable/toast_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="50sp" />
+
+        <ListView
+            android:id="@+id/list_department"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="부서ID"
+                android:textColor="@color/white"
+                android:background="@drawable/toast_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/txt_dept_dept_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:hint="dept_id"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/text_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="부서명"
+                android:textColor="@color/white"
+                android:background="@drawable/toast_background"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/txt_dept_dept_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:hint="dept_name"
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_dept_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginTop="32dp"
+            android:text="확     인"
+            android:textSize="60sp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_bakcground"
+        />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

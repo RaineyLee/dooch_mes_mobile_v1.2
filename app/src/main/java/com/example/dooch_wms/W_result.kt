@@ -21,8 +21,8 @@ class W_result: AppCompatActivity() {
         setContentView(resultBinding.root)
 
         // W_work 화면에서 값을 전달 받음
-        val emp_id = intent.getStringExtra("emp_id")
-        val emp_name = intent.getStringExtra("emp_name")
+        val dept_id = intent.getStringExtra("dept_id")
+        val dept_name = intent.getStringExtra("dept_name")
         val order_id = intent.getStringExtra("order_id")
         val prod_id = intent.getStringExtra("prod_id")
         val prod_name = intent.getStringExtra("prod_name")
@@ -37,8 +37,8 @@ class W_result: AppCompatActivity() {
 
 
         // intent를 통해 받은 값을 상위 항목에 입력 함.
-        resultBinding.txtResultEmpId.text = emp_id
-        resultBinding.txtResultEmpName.text = emp_name
+        resultBinding.txtResultDeptId.text = dept_id
+        resultBinding.txtResultDeptName.text = dept_name
         resultBinding.txtResultOrderId.text = order_id
         resultBinding.txtResultProdId.text = prod_id
         resultBinding.txtResultProdName.text = prod_name
@@ -51,8 +51,8 @@ class W_result: AppCompatActivity() {
        // "W_work" 화면으로 이동 intent flag 사용(이전화면 내용 복구)
         resultBinding.btnResultReturn.setOnClickListener {
             val intent = Intent(this, W_work::class.java)
-            intent.putExtra("emp_id", emp_id)
-            intent.putExtra("emp_name", emp_name)
+            intent.putExtra("dept_id", dept_id)
+            intent.putExtra("dept_name", dept_name)
             startActivity(intent)
         }
 
