@@ -89,6 +89,23 @@ class W_work : AppCompatActivity() {
             if (inputText.length > 0){
                 workBinding.btnWorkStart.isEnabled = true
             }
+
+
+        }
+
+        // 생산오더 아이디 클릭 하면 제품정보 클리어
+        workBinding.txtWorkOrderId.setOnFocusChangeListener{view, hasFocus ->
+            if(hasFocus){
+                workBinding.txtWorkOrderId.setText("")
+                workBinding.txtWorkProdStatus.text = ""
+                workBinding.txtWorkProdId.text = ""
+                workBinding.txtWorkProdName.text = ""
+                workBinding.txtWorkProdQty.text = ""
+
+                // 숫자 키패드 보이기
+                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+            }
         }
 
         // "사원번호", "사원명" 조회버튼 클릭시 W_employee 화면으로 이동
@@ -166,6 +183,8 @@ class W_work : AppCompatActivity() {
                         workBinding.txtWorkProdTime.text = prodList.w_time.toString()
                         workBinding.txtWorkStartTime.text = prodList.s_time.toString()
 
+                        update_button_text()
+
                     } else if (response.isSuccessful && response.body()?.order_id == null) {
                         workBinding.txtWorkOrderId.setText("")
                         workBinding.txtWorkProdId.text = ""
@@ -191,7 +210,7 @@ class W_work : AppCompatActivity() {
                     }
                 }
             })
-
+            update_button_text()
         }
 
         // 시작버튼 클릭 리스너 설정
@@ -572,6 +591,18 @@ class W_work : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun update_button_text(){
+        if (workBinding.txtWorkProdStatus.text.toString() == "릴리스됨"){
+            workBinding.btnWorkStart.text = "작업 시작"
+        }
+        else if(workBinding.txtWorkProdStatus.text.toString() == "중지됨"){
+            workBinding.btnWorkStart.text = "재시작"
+        }
+        else if(workBinding.txtWorkProdStatus.text.toString() == "시작됨") {
+            workBinding.btnWorkStart.text = "재시작"
+        }
     }
 }
 
