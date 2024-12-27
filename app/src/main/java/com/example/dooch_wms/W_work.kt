@@ -376,8 +376,7 @@ class W_work : AppCompatActivity() {
                     val prod_id = workBinding.txtWorkProdId.text.toString()
                     val prod_name = workBinding.txtWorkProdName.text.toString()
                     val c_time = workBinding.txtWorkCTime.text.toString()
-                    val w_time = workBinding.txtWorkProdTime.text?.toString()?.toLongOrNull()
-                        ?: 0L //저장된 작업시간 초기값 '0'
+                    val w_time = workBinding.txtWorkProdTime.text?.toString()?.toLongOrNull()?: 0L //저장된 작업시간 초기값 '0'
                     val status = workBinding.txtWorkProdStatus.text.toString()
 
                     // 작업시간 계산후 누적시킴
@@ -385,7 +384,7 @@ class W_work : AppCompatActivity() {
                     workBinding.txtWorkProdTime.text = working_time.toString()
 
                     // 중지시간계산
-                    val (t_dif_sec, t_dif_min) = differenceTime(c_time, end_time)
+                    val (t_dif_sec, t_dif_min) = differenceTime(c_time, end_time) // private 함수 사용
                     val pause_time = (t_dif_sec - working_time).toString()
 
                     // 점심시간을 전체 작업시간에서 제외
@@ -413,10 +412,7 @@ class W_work : AppCompatActivity() {
                         val lunch_start_date_time = current_date.atTime(lunch_time_start)
                         val lunch_end_date_time = current_date.atTime(lunch_time_end)
 
-                        if (lunch_start_date_time.isAfter(c_time_edit) && lunch_end_date_time.isBefore(
-                                end_time_edit
-                            )
-                        ) {
+                        if (lunch_start_date_time.isAfter(c_time_edit) && lunch_end_date_time.isBefore(end_time_edit)) {
                             count++
                             working_time -= 3600 * count
                             count = 0
@@ -426,10 +422,7 @@ class W_work : AppCompatActivity() {
                         val first_rest_d_time_start = current_date.atTime(first_rest_time_start)
                         val first_rest_d_time_end = current_date.atTime(first_rest_time_end)
 
-                        if (first_rest_d_time_start.isAfter(c_time_edit) && first_rest_d_time_end.isBefore(
-                                end_time_edit
-                            )
-                        ) {
+                        if (first_rest_d_time_start.isAfter(c_time_edit) && first_rest_d_time_end.isBefore(end_time_edit)) {
                             count++
                             working_time -= 900 * count
                             count = 0
@@ -687,20 +680,5 @@ class W_work : AppCompatActivity() {
         }
     }
 
-    private fun showExitDialog(){
-        AlertDialog.Builder(this)
-            .setTitle("작업종료")
-            .setMessage("작업을 종료 하시겠습니까?")
-            .setPositiveButton("YES"){_, _ ->
-                return@setPositiveButton
-            }
-            .setNegativeButton("NO"){dialog, _ ->
-                dialog.dismiss()
-            }
-    }
-
-    private fun endWorkingProcess(){
-
-    }
 }
 
