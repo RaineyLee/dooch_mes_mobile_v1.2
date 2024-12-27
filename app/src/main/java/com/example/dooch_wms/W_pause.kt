@@ -67,7 +67,7 @@ class W_pause: AppCompatActivity() {
         // 라디오 버튼 텍스트를 동적으로 설정
         pauseBinding.rbPause1.text = "[자재] 자재투입 지연"
         pauseBinding.rbPause2.text = "[품질] 자재품질 불량"
-        pauseBinding.rbPause3.text = "[중지] 휴게/외출/퇴근"
+        pauseBinding.rbPause3.text = "[중지] 외출/퇴근"
         pauseBinding.rbPause4.text = "[개인] 개인 용무"
         pauseBinding.rbPause5.text = "[기타] 기타"
 

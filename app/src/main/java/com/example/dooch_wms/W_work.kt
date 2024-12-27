@@ -21,6 +21,10 @@ import java.text.SimpleDateFormat
 import android.view.Gravity
 import android.view.View
 import com.example.dooch_wms.databinding.CustomToastBinding
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
@@ -32,6 +36,10 @@ class W_work : AppCompatActivity() {
     private lateinit var workBinding: ActivityWorkBinding
     private var batch = 0
     private var isBtnSearchEnabled = true // 버튼 리스너 활성화 여부 제어
+
+    private val lunch_time: Int = 3600
+    private val early_rest_time: Int = 900
+    private val late_rest_time: Int = 900
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -341,55 +349,129 @@ class W_work : AppCompatActivity() {
 
         // "작업 종료" 버튼 클릭 리스너
         workBinding.btnWorkEnd.setOnClickListener {
-            // 작업 상태값 변경(시작됨 --> 종료됨)
-            workBinding.txtWorkProdStatus.text = "종료됨"
+            AlertDialog.Builder(this)
+                .setTitle("작업종료")
+                .setMessage("작업을 종료 하시겠습니까?")
+                .setPositiveButton("YES") { _, _ ->
+                    // 작업 상태값 변경(시작됨 --> 종료됨)
+                    workBinding.txtWorkProdStatus.text = "종료됨"
 
-            // 현재 시간 가져오기
-            val currentTime = Date()
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
+                    // 현재 시간 가져오기
+                    val currentTime = Date()
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    dateFormat.timeZone = TimeZone.getTimeZone("Asia/Seoul")
 
-            // 날짜와 시간을 기본 형식으로 변환 후 textview_new에 설정
-            workBinding.txtWorkEndTime.text = dateFormat.format(currentTime)
+                    // 날짜와 시간을 기본 형식으로 변환 후 textview_new에 설정
+                    workBinding.txtWorkEndTime.text = dateFormat.format(currentTime)
 
-            // 텍스트뷰에 입력된 날짜를 가져와서 두 시간 차이를 초로 계산
-            val start_time = workBinding.txtWorkStartTime.text.toString()
-            var end_time = workBinding.txtWorkEndTime.text.toString()
+                    // 텍스트뷰에 입력된 날짜를 가져와서 두 시간 차이를 초로 계산
+                    val start_time = workBinding.txtWorkStartTime.text.toString()
+                    var end_time = workBinding.txtWorkEndTime.text.toString()
 
-            // 사용자 함수를 통해서 차이 시간을 초,분 으로 받기
-            val (dif_sec, dif_min) = differenceTime(start_time, end_time)
+                    // 사용자 함수를 통해서 차이 시간을 초,분 으로 받기
+                    val (dif_sec, dif_min) = differenceTime(start_time, end_time)
 
-            // 종료 화면으로 보낼 변수값 확인
-            val order_id = workBinding.txtWorkOrderId.text.toString()
-            val prod_id = workBinding.txtWorkProdId.text.toString()
-            val prod_name = workBinding.txtWorkProdName.text.toString()
-            val c_time = workBinding.txtWorkCTime.text.toString()
-            val w_time = workBinding.txtWorkProdTime.text?.toString()?.toLongOrNull() ?: 0L //저장된 작업시간 초기값 '0'
-            val status = workBinding.txtWorkProdStatus.text.toString()
+                    // 종료 화면으로 보낼 변수값 확인
+                    val order_id = workBinding.txtWorkOrderId.text.toString()
+                    val prod_id = workBinding.txtWorkProdId.text.toString()
+                    val prod_name = workBinding.txtWorkProdName.text.toString()
+                    val c_time = workBinding.txtWorkCTime.text.toString()
+                    val w_time = workBinding.txtWorkProdTime.text?.toString()?.toLongOrNull()
+                        ?: 0L //저장된 작업시간 초기값 '0'
+                    val status = workBinding.txtWorkProdStatus.text.toString()
 
-            // 작업시간 계산후 누적시킴
-            val working_time = (w_time + dif_sec)
-            workBinding.txtWorkProdTime.text = working_time.toString()
+                    // 작업시간 계산후 누적시킴
+                    var working_time = (w_time + dif_sec)
+                    workBinding.txtWorkProdTime.text = working_time.toString()
 
-            // 중지시간계산
-            val (t_dif_sec, t_dif_min) = differenceTime(c_time, end_time)
-            val pause_time = (t_dif_sec - working_time).toString()
+                    // 중지시간계산
+                    val (t_dif_sec, t_dif_min) = differenceTime(c_time, end_time)
+                    val pause_time = (t_dif_sec - working_time).toString()
+
+                    // 점심시간을 전체 작업시간에서 제외
+                    // 점심시간 3600
+                    val lunch_time_start = LocalTime.of(12, 0, 0)
+                    val lunch_time_end = LocalTime.of(13, 0, 0)
+                    // 오전 휴게시간
+                    val first_rest_time_start = LocalTime.of(10, 0, 0)
+                    val first_rest_time_end = LocalTime.of(10, 15, 0)
+                    // 오후 휴게시간
+                    val second_rest_time_start = LocalTime.of(15, 0, 0)
+                    val second_rest_time_end = LocalTime.of(15, 15, 0)
+
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+                    val c_time_edit = LocalDateTime.parse(c_time, formatter)
+                    val end_time_edit = LocalDateTime.parse(end_time, formatter)
+
+                    var current_date = c_time_edit.toLocalDate()
+                    val end_date = end_time_edit.toLocalDate()
+                    var count = 0
+
+                    while (!current_date.isAfter(end_date)) {
+
+                        // 점심시간 제외
+                        val lunch_start_date_time = current_date.atTime(lunch_time_start)
+                        val lunch_end_date_time = current_date.atTime(lunch_time_end)
+
+                        if (lunch_start_date_time.isAfter(c_time_edit) && lunch_end_date_time.isBefore(
+                                end_time_edit
+                            )
+                        ) {
+                            count++
+                            working_time -= 3600 * count
+                            count = 0
+                        }
+
+                        // 휴게시간 제외(오전)
+                        val first_rest_d_time_start = current_date.atTime(first_rest_time_start)
+                        val first_rest_d_time_end = current_date.atTime(first_rest_time_end)
+
+                        if (first_rest_d_time_start.isAfter(c_time_edit) && first_rest_d_time_end.isBefore(
+                                end_time_edit
+                            )
+                        ) {
+                            count++
+                            working_time -= 900 * count
+                            count = 0
+                        }
+
+                        // 휴게시간 제외(오후)
+                        val second_rest_d_time_start = current_date.atTime(second_rest_time_start)
+                        val second_rest_d_time_end = current_date.atTime(second_rest_time_end)
+
+                        if (second_rest_d_time_start.isAfter(c_time_edit) && second_rest_d_time_end.isBefore(
+                                end_time_edit
+                            )
+                        ) {
+                            count++
+                            working_time -= 900 * count
+                            count = 0
+                        }
+
+                        // 날짜를 하루 증가시켜 무한 루프 방지
+                        current_date = current_date.plusDays(1)
+                    }
 
 
-            // DB 입력
-            editOrderEnd(order_id, end_time, working_time.toString(), pause_time, status)
+                    // DB 입력
+                    editOrderEnd(order_id, end_time, working_time.toString(), pause_time, status)
 
-            val intent = Intent(this, W_result::class.java)
-            intent.putExtra("dept_id", dept_id)
-            intent.putExtra("dept_name", dept_name)
-            intent.putExtra("order_id", order_id)
-            intent.putExtra("prod_id", prod_id)
-            intent.putExtra("prod_name", prod_name)
-            intent.putExtra("c_time", c_time)
-            intent.putExtra("end_time", end_time)
-            intent.putExtra("working_time", working_time.toString()) // 생산오더 id 전달
-            intent.putExtra("pause_time", pause_time)
-            startActivity(intent)
+                    val intent = Intent(this, W_result::class.java)
+                    intent.putExtra("dept_id", dept_id)
+                    intent.putExtra("dept_name", dept_name)
+                    intent.putExtra("order_id", order_id)
+                    intent.putExtra("prod_id", prod_id)
+                    intent.putExtra("prod_name", prod_name)
+                    intent.putExtra("c_time", c_time)
+                    intent.putExtra("end_time", end_time)
+                    intent.putExtra("working_time", working_time.toString()) // 생산오더 id 전달
+                    intent.putExtra("pause_time", pause_time)
+                    startActivity(intent)
+                }
+                .setNegativeButton("NO"){dialog,_->
+                    dialog.dismiss()
+                }
+                .show()
 
         }
 
@@ -413,7 +495,7 @@ class W_work : AppCompatActivity() {
 
         // Toast 생성 및 설정
         val toast = Toast(applicationContext)
-        toast.duration = Toast.LENGTH_LONG
+        toast.duration = Toast.LENGTH_SHORT
         toast.view = toastBinding.root
 
         // Toast 위치를 화면 중앙으로 설정
@@ -603,6 +685,22 @@ class W_work : AppCompatActivity() {
         else if(workBinding.txtWorkProdStatus.text.toString() == "시작됨") {
             workBinding.btnWorkStart.text = "재시작"
         }
+    }
+
+    private fun showExitDialog(){
+        AlertDialog.Builder(this)
+            .setTitle("작업종료")
+            .setMessage("작업을 종료 하시겠습니까?")
+            .setPositiveButton("YES"){_, _ ->
+                return@setPositiveButton
+            }
+            .setNegativeButton("NO"){dialog, _ ->
+                dialog.dismiss()
+            }
+    }
+
+    private fun endWorkingProcess(){
+
     }
 }
 
