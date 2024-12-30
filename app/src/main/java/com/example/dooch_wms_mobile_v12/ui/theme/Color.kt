@@ -1,4 +1,4 @@
-package com.example.dooch_wms.ui.theme
+package com.example.dooch_wms_mobile_v12.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

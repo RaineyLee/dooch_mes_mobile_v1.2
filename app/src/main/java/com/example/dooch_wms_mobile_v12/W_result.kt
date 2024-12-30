@@ -1,10 +1,9 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dooch_wms.databinding.ActivityResultBinding
+import com.example.dooch_wms_mobile_v12.databinding.ActivityResultBinding
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit

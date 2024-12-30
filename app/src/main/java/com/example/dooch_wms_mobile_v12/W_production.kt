@@ -1,18 +1,10 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.AdapterView
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dooch_wms.databinding.ActivityProductionBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.dooch_wms_mobile_v12.databinding.ActivityProductionBinding
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

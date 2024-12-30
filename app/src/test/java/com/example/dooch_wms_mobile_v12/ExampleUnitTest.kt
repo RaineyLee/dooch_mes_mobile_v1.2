@@ -1,4 +1,4 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
 import org.junit.Test
 
