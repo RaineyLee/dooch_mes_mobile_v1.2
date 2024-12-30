@@ -1,17 +1,13 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import com.example.dooch_wms.databinding.ActivityEmployeeBinding
-import com.example.dooch_wms.databinding.ActivityMainBinding
+import com.example.dooch_wms_mobile_v12.databinding.ActivityEmployeeBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

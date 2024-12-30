@@ -1,12 +1,11 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
-import com.example.dooch_wms.databinding.LayoutProdOrderBinding
+import com.example.dooch_wms_mobile_v12.databinding.LayoutProdOrderBinding
 
 class A_production (val context: Context, val ProdList: ArrayList<D_production>) : BaseAdapter()
 {

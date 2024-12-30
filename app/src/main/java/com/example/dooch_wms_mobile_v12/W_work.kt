@@ -1,4 +1,4 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
 
 import android.content.Context
@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import com.example.dooch_wms.databinding.ActivityWorkBinding
+import com.example.dooch_wms_mobile_v12.databinding.ActivityWorkBinding
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,11 +20,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import android.view.Gravity
 import android.view.View
-import com.example.dooch_wms.databinding.CustomToastBinding
+import com.example.dooch_wms_mobile_v12.databinding.CustomToastBinding
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone

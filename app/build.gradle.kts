@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dooch_wms"
+    namespace = "com.example.dooch_wms_mobile_v12"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.dooch_wms"
+        applicationId = "com.example.dooch_wms_mobile_v12"
         minSdk = 33
         targetSdk = 34
         versionCode = 1

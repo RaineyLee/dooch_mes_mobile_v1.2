@@ -1,4 +1,4 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import com.example.dooch_wms.databinding.ActivityEmployeeBinding
+import com.example.dooch_wms_mobile_v12.databinding.ActivityEmployeeBinding
 
 class A_employee (val context: Context, val EmpList: ArrayList<D_employee>) : BaseAdapter()
 {

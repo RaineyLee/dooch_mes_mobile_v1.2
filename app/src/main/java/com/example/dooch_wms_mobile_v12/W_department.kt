@@ -1,6 +1,6 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
-import com.example.dooch_wms.databinding.ActivityDepartmentBinding
+import com.example.dooch_wms_mobile_v12.databinding.ActivityDepartmentBinding
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log

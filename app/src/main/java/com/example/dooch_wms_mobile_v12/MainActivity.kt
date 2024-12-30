@@ -1,11 +1,11 @@
-package com.example.dooch_wms
+package com.example.dooch_wms_mobile_v12
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import com.example.dooch_wms.databinding.ActivityMainBinding
+import com.example.dooch_wms_mobile_v12.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
