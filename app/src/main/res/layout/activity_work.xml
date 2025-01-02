@@ -166,7 +166,7 @@
                 android:paddingRight="16dp"
                 android:paddingLeft="16dp"
                 android:textColor="@color/white"
-                android:background="@drawable/button_bakcground"
+                android:background="@drawable/button_background"
                 />
         </LinearLayout>
 
@@ -187,12 +187,11 @@
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/txt_work_order_id"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:hint="생산오더 입력"
                 android:textColor="@color/black"
                 android:gravity="center"
                 android:inputType="number"
@@ -220,7 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_work_search_2"
-                android:background="@drawable/button_bakcground"
+                android:background="@drawable/button_background"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="  조     회  "
@@ -273,7 +272,7 @@
         android:text="작업 시작"
         android:textSize="84sp"
         android:textColor="@color/button_text_color"
-        android:background="@drawable/button_bakcground"
+        android:background="@drawable/button_background"
         android:id="@+id/btn_work_start"/>
 
     <Button
@@ -283,7 +282,7 @@
         android:text="작업중지/사유입력"
         android:textSize="84sp"
         android:textColor="@color/button_text_color"
-        android:background="@drawable/button_bakcground"
+        android:background="@drawable/button_background"
         android:id="@+id/btn_work_pause"/>
 
     <Button
@@ -293,7 +292,7 @@
         android:text="작업 종료"
         android:textSize="84sp"
         android:textColor="@color/button_text_color"
-        android:background="@drawable/button_bakcground"
+        android:background="@drawable/button_background"
         android:id="@+id/btn_work_end"/>
 
     <Button

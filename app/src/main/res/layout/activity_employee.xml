@@ -79,7 +79,7 @@
         android:layout_width="750dp"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button_bakcground"
+        android:background="@drawable/button_background"
         android:text="확 인"
         android:textColor="@color/white"
         android:textSize="50sp"

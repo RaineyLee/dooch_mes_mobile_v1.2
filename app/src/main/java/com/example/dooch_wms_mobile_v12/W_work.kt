@@ -67,6 +67,11 @@ class W_work : AppCompatActivity() {
         // 부서 정보를 가져온다
         val deptIdFromIntent = intent.getStringExtra("dept_id") ?: ""
         val deptNameFromIntent = intent.getStringExtra("dept_name") ?: ""
+        val orderId = intent.getStringExtra("order_id") ?: ""
+        val prodId = intent.getStringExtra("prod_id") ?: ""
+        val prodName = intent.getStringExtra("prod_name") ?: ""
+        val prodStatus = intent.getStringExtra("status") ?: ""
+        val prodQty = intent.getStringExtra("prod_qty") ?: ""
 
         // Intent에서 가져온 값이 null일 경우 기본값 설정
         val dept_id = if (deptIdFromIntent.isNotEmpty()) deptIdFromIntent else ""
@@ -76,12 +81,19 @@ class W_work : AppCompatActivity() {
         // 사용자 정보 입력
         workBinding.txtWorkDeptId.text = dept_id
         workBinding.txtWorkDeptName.text = dept_name
+        workBinding.txtWorkOrderId.text = orderId
+        workBinding.txtWorkProdStatus.text = prodStatus
+        workBinding.txtWorkProdId.text = prodId
+        workBinding.txtWorkProdName.text = prodName
+        workBinding.txtWorkProdQty.text = prodQty
+
+        // 생산오더 정보 입력
 
         // 시작시간 설정
         workBinding.txtWorkStartTime.text = ""
 
         // 생산오더 정보, 중지, 종료 버튼, 배치 번호 비활성화 및 배치번호 갱신
-        workBinding.btnWorkStart.isEnabled = false
+        workBinding.btnWorkStart.isEnabled = true
         workBinding.btnWorkPause.isEnabled = false
         workBinding.btnWorkEnd.isEnabled = false
         workBinding.txtWorkBatchId.text = String.format(Locale.getDefault(), "%d", batch)
@@ -141,83 +153,22 @@ class W_work : AppCompatActivity() {
         // "생산오더 번호" 입력후 조회버튼 클릭시 W_production 화면으로 이동
         // 전환시 "생산오더 번호" 같이 전달
         workBinding.btnWorkSearch2.setOnClickListener {
+            // 제품정보 가져오기 화면 이동
+            // 사용자(부서) 정보 전달
+            val dept_id : String? = workBinding.txtWorkDeptId.text.toString()
+            val dept_name : String? =  workBinding.txtWorkDeptName.text.toString()
 
-            // 키보드 숨기기
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(workBinding.txtWorkOrderId.windowToken, 0)
-
-            // EditText의 커서 없애기 (포커스 제거)
-            workBinding.txtWorkOrderId.clearFocus()
-
-            if (workBinding.txtWorkDeptId.text.toString() == ""){
-                showCustomToast("알림", "작업자를 먼저 '조회/선택' 해 주세요.")
-                return@setOnClickListener
+            // 부서정보 미선택시 이벤트 처리
+            if(dept_id.isNullOrEmpty()){
+                showCustomToast("알림", "부서정보를 확인 할 수 없습니다. 부서정보를 확인해 주세요.")
+            }else{
+                // 화면전환 Intent 설정
+                // 생산오더 조회 화면으로 값 전달
+                val intent = Intent(this, W_production::class.java)
+                intent.putExtra("dept_id", dept_id) // 작업부서 id 전달
+                intent.putExtra("dept_name", dept_name) //  작업부서명 전달
+                startActivity(intent)
             }
-
-            if (workBinding.txtWorkOrderId.text.toString() == ""){
-                showCustomToast("알림", "생산오더 번호를 입력해 주세요.")
-                return@setOnClickListener
-            }
-
-            val order_id = workBinding.txtWorkOrderId.text.toString()
-
-            // http 통신을 위한 retrofit 설정
-            // retrofit 객체 생성
-            val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.1.197:80/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            val prodservice: S_production = retrofit.create(S_production::class.java)
-
-            prodservice.requestProdInfo(order_id).enqueue(object : Callback<D_production> { //받는 값이 List 형식이면 Callback<List<D_production>>
-                override fun onFailure(call: Call<D_production>, t: Throwable) {
-                    val dialog = AlertDialog.Builder(this@W_work)
-                    dialog.setTitle("에러")
-                    dialog.setMessage(t.message)
-                    dialog.show()
-                }
-                override fun onResponse(call: Call<D_production>, response: Response<D_production>) {  //받는 값이 List 형식이면 Callback<List<D_production>>
-                    val prodList = response.body()!!
-                    if (response.isSuccessful && response.body()?.order_id != null) {
-                        // body로 받은 값을 할당 하는 코드
-                        workBinding.txtWorkOrderId.setText(prodList.order_id.toString())
-                        workBinding.txtWorkProdId.text = prodList.item_id.toString()
-                        workBinding.txtWorkProdName.text = prodList.item_name.toString()
-                        workBinding.txtWorkProdQty.text = prodList.item_qty.toString() + " EA"
-                        workBinding.txtWorkProdStatus.text = prodList.status.toString()
-                        workBinding.txtWorkCTime.text = prodList.c_time.toString()
-                        workBinding.txtWorkProdTime.text = prodList.w_time.toString()
-                        workBinding.txtWorkStartTime.text = prodList.s_time.toString()
-
-                        update_button_text()
-
-                    } else if (response.isSuccessful && response.body()?.order_id == null) {
-                        workBinding.txtWorkOrderId.setText("")
-                        workBinding.txtWorkProdId.text = ""
-                        workBinding.txtWorkProdName.text = ""
-                        workBinding.txtWorkProdQty.text = ""
-                        workBinding.txtWorkProdStatus.text = ""
-                        workBinding.txtWorkProdTime.text = ""
-                        workBinding.txtWorkCTime.text = ""
-                        showCustomToast("알림", "조회된 생산오더가 없습니다. 생산오더를 확인해 주세요.")
-                    } else {
-                        // 오류 처리 코드
-                        // 오류 처리: errorBody() 파싱하여 서버에서 전달한 메시지 출력
-                        val errorJson = response.errorBody()?.string()
-                        val errorMessage = try {
-                            JSONObject(errorJson).getString("message")
-                            Log.d("전달값_try", "Response body: ${response.body()}")
-                        } catch (e: Exception) {
-                            Log.d("전달값_catch", "Response body: ${response.body()}")
-                        }
-
-                        Log.d("제품정보 오류", errorJson ?: "No error body")
-                        showCustomToast("에러", errorMessage.toString())
-                    }
-                }
-            })
-            update_button_text()
         }
 
         // 시작버튼 클릭 리스너 설정

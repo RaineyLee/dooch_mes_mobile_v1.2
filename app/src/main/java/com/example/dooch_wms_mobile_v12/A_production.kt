@@ -28,6 +28,7 @@ class A_production (val context: Context, val ProdList: ArrayList<D_production>)
         binding.txtLayProdId.text = product.item_id
         binding.txtLayProdName.text = product.item_name
         binding.txtLayProdQty.text = product.item_qty
+        binding.txtLayOrderStatus.text = product.status
 
         return view
 

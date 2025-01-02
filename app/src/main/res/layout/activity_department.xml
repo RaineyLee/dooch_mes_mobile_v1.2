@@ -31,7 +31,8 @@
             android:id="@+id/list_department"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="32dp" />
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/divider5" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,7 +90,7 @@
             android:text="확     인"
             android:textSize="60sp"
             android:textColor="@color/white"
-            android:background="@drawable/button_bakcground"
+            android:background="@drawable/button_background"
         />
 
     </LinearLayout>

@@ -41,4 +41,11 @@ interface S_production {
         @Field("working_time") working_time: String?,
         @Field("status") status: String?
     ) : Call<D_msg> // 받아서 Message 클래스로 전달
+
+    @FormUrlEncoded
+    @POST("fetch_production_order.php") // 웹서버의 메인 다음에 나오는 주소
+    fun selectProdInfo(
+        @Field("dept_id") dept_id: String?,
+        @Field("status") status: String?
+    ) : Call<List<D_production>> // 받아서 Message 클래스로 전달
 }

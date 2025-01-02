@@ -3,80 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:background="#990033"
+    android:layout_height="120dp">
 
     <TextView
         android:id="@+id/txt_lay_prod_id"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="TextView"
+        android:layout_marginTop="16dp"
+        android:hint="prod_id"
+        android:textColorHint="@color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_lay_prod_order_text_1"
-        app:layout_constraintStart_toEndOf="@+id/txt_lay_prod_order_text_1" />
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/txt_lay_prod_name"
-        android:layout_width="400dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:layout_marginStart="16dp"
+        android:hint="prod_name"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_lay_prod_order_text_2"
-        app:layout_constraintStart_toEndOf="@+id/txt_lay_prod_order_text_2" />
-
-    <TextView
-        android:id="@+id/txt_lay_prod_order_text_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:text="수량"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_lay_prod_name"
-        app:layout_constraintEnd_toStartOf="@+id/txt_lay_prod_qty" />
-
-    <TextView
-        android:id="@+id/txt_lay_prod_order_text_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="16dp"
-        android:text="제품ID"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_lay_prod_order_text_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="제품명"
-        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@+id/txt_lay_prod_id"
         app:layout_constraintStart_toEndOf="@+id/txt_lay_prod_id" />
 
     <TextView
         android:id="@+id/txt_lay_prod_qty"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="TextView"
+        android:layout_marginEnd="16dp"
+        android:hint="qty"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_lay_prod_order_text_3"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_lay_order_id"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="생산오더"
+        android:textColor="@color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/txt_lay_prod_id"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="수량"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_lay_prod_qty"
+        app:layout_constraintEnd_toStartOf="@+id/txt_lay_prod_qty" />
 
     <TextView
         android:id="@+id/txt_lay_order_id"
@@ -84,8 +74,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:hint="생산오더 번호"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/txt_lay_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:hint="STATUS"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

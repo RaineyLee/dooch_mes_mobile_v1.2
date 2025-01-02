@@ -113,7 +113,7 @@
             android:id="@+id/rg_pause_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_bakcground"
+            android:background="@drawable/button_background"
             android:orientation="vertical"
             android:layout_marginTop="8dp">
 
@@ -189,7 +189,7 @@
             android:hint="상위에서 선택한 항목 표시"
             android:textSize="30sp"
             android:textColor="@color/white"
-            android:background="@drawable/button_bakcground"
+            android:background="@drawable/button_background"
             android:layout_marginTop="8dp"/>
 
         <Button
@@ -197,7 +197,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_pause_confirm"
             android:layout_marginTop="16dp"
-            android:background="@drawable/button_bakcground"
+            android:background="@drawable/button_background"
             android:textColor="@color/white"
             android:text="확      인"
             android:textSize="84sp"/>
