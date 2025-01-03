@@ -81,7 +81,7 @@ class W_work : AppCompatActivity() {
         // 사용자 정보 입력
         workBinding.txtWorkDeptId.text = dept_id
         workBinding.txtWorkDeptName.text = dept_name
-        workBinding.txtWorkOrderId.text = orderId
+        workBinding.txtWorkOrderId.setText(orderId)
         workBinding.txtWorkProdStatus.text = prodStatus
         workBinding.txtWorkProdId.text = prodId
         workBinding.txtWorkProdName.text = prodName
@@ -157,6 +157,7 @@ class W_work : AppCompatActivity() {
             // 사용자(부서) 정보 전달
             val dept_id : String? = workBinding.txtWorkDeptId.text.toString()
             val dept_name : String? =  workBinding.txtWorkDeptName.text.toString()
+            val order_id : String? = workBinding.txtWorkOrderId.text.toString()
 
             // 부서정보 미선택시 이벤트 처리
             if(dept_id.isNullOrEmpty()){
@@ -167,6 +168,7 @@ class W_work : AppCompatActivity() {
                 val intent = Intent(this, W_production::class.java)
                 intent.putExtra("dept_id", dept_id) // 작업부서 id 전달
                 intent.putExtra("dept_name", dept_name) //  작업부서명 전달
+                intent.putExtra("order_id", order_id) // 생산오더 번호 전달
                 startActivity(intent)
             }
         }
