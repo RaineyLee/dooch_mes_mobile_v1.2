@@ -3,6 +3,7 @@ package com.example.dooch_wms_mobile_v12
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dooch_wms_mobile_v12.databinding.ActivityProductionBinding
+import com.example.dooch_wms_mobile_v12.databinding.CustomToastBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +24,7 @@ class W_production : AppCompatActivity() {
     // Intent로 주고 받는 변수 선언
     var dept_id : String? = ""
     var dept_name : String? = ""
+    var order_id : String? = ""
 
     // DB 조회를 위한 변수 설정
     var r_dept_id : String? = ""
@@ -105,13 +108,12 @@ class W_production : AppCompatActivity() {
         }
 
 
-        val order_id = intent.getStringExtra("order_id") //생산오더
-        // 사원번호, 사원명을 돌려 주기위해 받는 변수
-        val emp_id = intent.getStringExtra("emp_id")
-        val emp_name = intent.getStringExtra("emp_name")
+//        // 사원번호, 사원명을 돌려 주기위해 받는 변수
+//        val emp_id = intent.getStringExtra("emp_id")
+//        val emp_name = intent.getStringExtra("emp_name")
 
-        productionBinding.txtProdEmpId.text = emp_id.toString()
-        productionBinding.txtProdEmpName.text = emp_name.toString()
+//        productionBinding.txtProdEmpId.text = emp_id.toString()
+//        productionBinding.txtProdEmpName.text = emp_name.toString()
 
         // 20241006 화면변경으로 인해 사용 안 함.
 //        // db 조회를 위해 전달 받은 값을 잠시 저장 하는 장소로 사용
@@ -145,8 +147,7 @@ class W_production : AppCompatActivity() {
                 status
             }
 
-            selectProdOrder(r_dept_id.toString(), status)
-            Log.d("전달값", dept_id + status)
+            selectProdOrder( r_dept_id.toString(), status)
         }
 
 
@@ -189,9 +190,6 @@ class W_production : AppCompatActivity() {
     }
         private fun selectProdOrder(dept_id: String, status: String) {
             // 레트로핏 설정
-        }
-
-        private fun get_data(order_id: String?) {
             val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.1.197:80/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -226,6 +224,25 @@ class W_production : AppCompatActivity() {
         productionBinding.listProdOrder.adapter = adapter
     }
 
+    private fun showCustomToast(title: String, message: String) {
+        // 커스텀 레이아웃을 ViewBinding으로 가져오기
+        val toastBinding = CustomToastBinding.inflate(layoutInflater)
+
+        // TextView에 메시지 설정
+        toastBinding.toastTitle.text = title
+        toastBinding.toastMessage.text = message
+
+        // Toast 생성 및 설정
+        val toast = Toast(applicationContext)
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = toastBinding.root
+
+        // Toast 위치를 화면 중앙으로 설정
+        toast.setGravity(Gravity.CENTER, 0, 0)
+
+        toast.show()
+    }
+
 
 //            val prodservice: S_production = retrofit.create(S_production::class.java)
 //
@@ -253,13 +270,13 @@ class W_production : AppCompatActivity() {
 //            })
         }
 
-        private fun initializeViews(result: List<D_production>) {
-            // List를 ArrayList로 변환
-            val empArrayList = ArrayList(result)
-
-            // ListView에 어댑터 설정
-            val adapter = A_production(this, empArrayList)
-            productionBinding.listProdOrder.adapter = adapter
-        }
-
-    }
+//        private fun initializeViews(result: List<D_production>) {
+//            // List를 ArrayList로 변환
+//            val empArrayList = ArrayList(result)
+//
+//            // ListView에 어댑터 설정
+//            val adapter = A_production(this, empArrayList)
+//            productionBinding.listProdOrder.adapter = adapter
+//        }
+//
+//    }
